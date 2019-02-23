@@ -1,0 +1,12 @@
+<dependencies>
+  <packages>
+    <package>com.google.firebase:firebase-app-unity:5.4.3</package>
+    <package>com.google.firebase:firebase-auth:16.0.5</package>
+    <package>com.google.firebase:firebase-auth-unity:5.4.3</package>
+    <package>com.google.firebase:firebase-common:16.0.4</package>
+    <package>com.google.firebase:firebase-core:16.0.5</package>
+    <package>com.google.firebase:firebase-database:16.0.5</package>
+    <package>com.google.firebase:firebase-database-unity:5.4.3</package>
+  </packages>
+  <files />
+</dependencies>

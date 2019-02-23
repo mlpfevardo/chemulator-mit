@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "215674827632",
+    "firebase_url": "https://chemulator-d8bce.firebaseio.com",
+    "project_id": "chemulator-d8bce",
+    "storage_bucket": "chemulator-d8bce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:215674827632:android:2ede87b2cc971cdd",
+        "android_client_info": {
+          "package_name": "com.bev.chemulator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "215674827632-tf4l44c83g2hqcpbom4tb65iappoinof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwXltiqyMGG4rZD_oKWUPTmTSIn5VHeJk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

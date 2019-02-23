@@ -1,0 +1,23 @@
+Graham’s Law of Diffusion
+1. Using a 10-mL graduated cylinder, measure a 2 mL of concentrated hydrochloric acid, HCl, and pour the acid in a test tube. Stopper the test tube immediately with a cork and place it in a test tube rack.
+
+2. Using a 10-mL graduated cylinder, measure a 2 mL of concentrated ammonium hydroxide, NH4OH, and pour the base in a test tube. Stopper at once the test tube with a cork and put it in another test tube rack.
+
+3. Get a 12-inch, dry glass tubing with 90-degree bend located at 2 inches from each end. The dry glass tubing should have cork tightly fitted on each end (prepared by the laboratory assistant). Make sure that the glass tubing, cork, and test tube are tightly fitted before you insert both ends to test tubes containing hydrochloric acid, HCl, and ammonium hydroxide, NH4OH
+
+4. Remove the corks of the test tubes containing the concentrated hydrochloric acid, HCl, and ammonium hydroxide, NH4OH, insert simultaneously the glass tubing into the two test tubes.
+
+5. Wait for the appearances of the white ring and mark its location. Hydrogen chloride (from hydrochloric acid, HCl) and ammonia (from ammonium hydroxide, NH4OH) react to form ammonium chloride which is white. If the glass tubing is wet, the white ring will not be formed since ammonium chloride will be dissolved in water. The chemical equation involved here is
+ NH3 + HClNH4Cl
+
+6. Using a ruler, measure the distance (from one end of the glass tubing to the location of the first white ring produced) traveled be each gas.
+
+7. Calculate the experimental molar mass of ammonia.
+Note: The rate of diffusion is equal to the distance (d) traveled divided by the time (t) of diffusion of the gas.
+
+The molar mass of hydrogen chloride is 36.45h/mole.
+
+8. Calculate the percent error of the experiment. The true molar mass of ammonia is 17 g/mole.
+%error = [(True value - Experimental value) / (True value) ] x 100%
+
+9. Waste Disposal: Get a 150-mL beaker and half fill it with distilled water. Slowly pour the remaining concentrated hydrochloric acid, HCl into the water while stirring, followed by the excess ammonium hydrochloric, NH4OH. Afterwards, dispose the solution into the sink.

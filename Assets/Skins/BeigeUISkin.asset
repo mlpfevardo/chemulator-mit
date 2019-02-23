@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3c531556ce4df347a625431bbe34399, type: 3}
+  m_Name: BeigeUISkin
+  m_EditorClassIdentifier: 
+  buttonSprite: {fileID: 21300000, guid: 8e8051156b4decf4693f0648a48b3fc9, type: 3}
+  buttonSpriteState:
+    m_HighlightedSprite: {fileID: 21300000, guid: 94abb9c83b4667343b863b4bb8211c69,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 969e2d2e94fe0de47ad7d4c77fb84e54, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: f2cb1fe3705a8994d945445f3f3ab8c6, type: 3}

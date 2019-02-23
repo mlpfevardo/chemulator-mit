@@ -1,0 +1,27 @@
+I. Measuring the Density of a Solid
+
+A. By Geometric Method
+1. Get an one-peso coins. Put one over the other to form a cylinder.
+2. Determine the mass of the coins using the platform balance or the electronic balance.
+3. Measure the height and the diameter of the coin cylinder in centimeters using a ruler.
+4. Calculate the volume of the coin cylinder in cubic centimeters by using the equation V=2 h where V is the volume,  is a constant which is equal to 3.1416, r is the radius, and h is the height. The radius is equal to the diameter divided by two.
+5. Compute the density of the coin cylinder by dividing the mass by the volume.
+
+B. By Water Displacement
+1. Measure 50 ml of tap water using the 100-ml graduated cylinder. This will be the initial volume.
+2 .Get ten one-peso coins and place them slowly inside the graduated cylinder. Then, read the volume. This will be the final volume.
+3. Determine the volume of the coins. The volume of the coins is equal to the difference between the final volume and the initial volume.
+4. Determine the mass of the stack of coins (ten one-peso coins) using the platform balance or the electronic balance.
+5. Calculate the density of the coins by dividing the mass of the stack of coins by the volume.
+6. Waste Disposal: Dispose the water to the sink.
+
+
+II. Measuring the Density of a Liquid
+1. Weigh a clean, dry 100-ml graduated cylinder using the platform balance or the electronic balance.
+2. Place 50 ml of distilled water into the graduated cylinder. Then, weigh again.
+3. Determine the temperature of the water in the degree Celsius.
+4. Compute the density of the water. The mass of the water is equal to the mass of the graduated cylinder. Then, divide the mass of water by 50 ml to get its density.
+5. Make another trial using 100 ml of water.
+6. Calculate the average density of water.
+7. Compute for the percent error. Get the true value from a general chemistry book.
+8. Waste Disposal: Dispose the water to the sink.

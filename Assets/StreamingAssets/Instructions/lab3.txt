@@ -1,0 +1,22 @@
+1. In a 150-ml beaker, mix 20 mL of 1M calcium chloride, CaCl2, and 10 mL of 1M sodium carbonate, Na2CO3. Use a 50-mL graduated cylinder in measuring the volumes. Stir the mixture thoroughly and set aside for 5 minutes to complete the reaction.
+2. Filter the mixture. If there are some particles of the precipitate that cling to the sides of the beaker, add enough distilled water to recover the particles. Dispose the filtrate to the sink.
+3. Using the electronic balance, weigh a clean and dry watch glass.
+4. Place the filter paper containing the precipitate in the previously weighed watch glass.
+5. Place 300 mL of water in a 400-mL beaker and bring it to a boil. This will serve as your steam bath.
+6. When the water starts to boil, place the watch glass containing the filter paper with the precipitate over the beaker. Allow them to dry for 15 minutes. Then remove them from the steam bath and let them cool.
+7. Using a spatula, carefully scrape the precipitate from the filtrate paper onto the watch glass.
+Waste Disposal: Place the filter paper in the trash can.
+8. Place again the watch glass with the precipitate over the steam bath for another 15 minutes to dry the precipitate completely.
+9. Wipe any adhering moisture in the watch glass using a tissue paper or a piece of cloth.
+10.After cooling, weigh the watch glass with the dried precipitate.
+Waste Disposal: Place the precipitate in the trash can.
+From the data gathered, compute for the actual yield of precipitate.
+
+Actual Yield of the precipitate = (mass of watch glass and dried precipitate) - (mass of watch glass)
+
+Calculate the theoretical yield and the percent yield of the precipitate.
+Note 1: The products of the reaction between calcium chloride, CaCl2, and sodium carbonate, NaCO3, are calcium carbonate, CaCO3, and sodium chloride, NaCl. Calcium carbonate is insoluble in water while sodium chloride is soluble. The precipitate is calcium carbonate.l
+CaCl2 + Na2CO3 CaC03 + 2NaCl
+Note 2: Molarity (M) is a way of expressing the concentration of a solution. It is defined as the number of moles of solute in one liter of the solution. The unit of the molarity is the moles per liter or molar.
+	M = Number of moles of solute / Volume of solution in L
+To get the number of moles of a reactant, multiply its volume in liter by its concentration in molarity.
