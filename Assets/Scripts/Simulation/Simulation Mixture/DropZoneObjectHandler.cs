@@ -20,6 +20,8 @@ public class DropZoneObjectHandler : DraggableObjectBehavior, IPointerClickHandl
             this.MixtureItem = draggedObject.MixtureItem;
         }
 
+        this.MixtureItem.Parent = this.gameObject;
+
         SetIcon(this.MixtureItem.icon);
     }
 

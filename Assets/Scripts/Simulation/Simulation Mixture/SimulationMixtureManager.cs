@@ -108,13 +108,9 @@ public class SimulationMixtureManager : MonoBehaviour
             savedMixtures.Add(mixtureObject.MixtureItem, new List<SimulationMixableBehavior>());
         }
 
-        //draggedObject.MixtureItem.Parent = mixtureObject.MixtureItem;
-
         if (mixtureObject.MixtureItem.AutoMix)
         {
-            //MixableItem savedMixture = mixturePool[mixtureObject.MixtureItem.GetItemId()];
-            //savedMixture.doMixAction(savedMixtures[mixtureObject.GetHashCode()], mixtureObject);
-            if (mixtureObject.MixtureItem.DoMix(savedMixtures[mixtureObject.MixtureItem], mixtureObject, draggedObject))
+            if (mixtureObject.MixtureItem.DoMix(savedMixtures[mixtureObject.MixtureItem], mixtureObject, draggedObject, savedMixtures.ContainsKey(draggedObject.MixtureItem) ? savedMixtures[draggedObject.MixtureItem] : null))
             {
                 savedMixtures[mixtureObject.MixtureItem].Add(draggedObject.MixtureItem);
             }
@@ -140,10 +136,6 @@ public class SimulationMixtureManager : MonoBehaviour
             return false;
         }
 
-        Debug.Log("Mixing from sim manager");
-
-        //MixableItem savedMixture = mixturePool[mixture.MixtureItem.GetItemId()];
-        //savedMixture.doMixAction(savedMixtures[mixture.GetHashCode()], mixture);
         mixtureObject.MixtureItem.DoMix(savedMixtures[mixtureObject.MixtureItem], mixtureObject);
 
         return true;
@@ -164,17 +156,10 @@ public class SimulationMixtureManager : MonoBehaviour
         GameObject obj = null;
         Vector3 position = new Vector3(dropZoneObject.transform.position.x + 7, dropZoneObject.transform.position.y, dropZoneObject.transform.position.z);
 
-        //if (!mixturePool.ContainsKey(dropZoneObject.MixtureItem.GetItemId()))
-        //{
-        //    Debug.LogError("Mixture " + dropZoneObject.MixtureItem.GetItemId() + " is not registered");
-        //    return;
-        //}
-
         contextMenuPanel.transform.position = position;
 
         contextMenuPanel.SetActive(true);
-
-        //if (mixturePool[dropZoneObject.MixtureItem.GetItemId()].doMixAction != null && !dropZoneObject.MixtureItem.AutoMix)
+        
         if (mixturePool.ContainsKey(dropZoneObject.MixtureItem.GetItemId()) && !string.IsNullOrEmpty(dropZoneObject.MixtureItem.MixButtonTitle))
         {
             if (!savedMixtures.ContainsKey(dropZoneObject.MixtureItem))
