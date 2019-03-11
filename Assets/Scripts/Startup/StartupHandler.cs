@@ -21,7 +21,7 @@ public class StartupHandler : MonoBehaviour {
 
     private void Initialize()
     {
-        //Camera.main.gameObject.SetActive(false);        
+        Camera.main.gameObject.SetActive(false);        
 
         if (FirebaseAuthManager.instance.IsAuthenticated())
         {

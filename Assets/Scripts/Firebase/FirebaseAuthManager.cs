@@ -168,17 +168,17 @@ public class FirebaseAuthManager : MonoBehaviour
         return complete;
     }
 
-    public Task<bool> CreateUser()
+    public void CreateUser()
     {
         Debug.Log(String.Format("Attempting to create user {0}...", email));
         DisableUI();
 
         string newDisplayName = displayName;
-        return auth.CreateUserWithEmailAndPasswordAsync(email, password)
+        auth.CreateUserWithEmailAndPasswordAsync(email, password)
             .ContinueWith((task) => ProcessUserRegistration(task, newDisplayName: newDisplayName)); ;
     }
 
-    private bool ProcessUserRegistration(Task<Firebase.Auth.FirebaseUser> task, string newDisplayName = null)
+    private void ProcessUserRegistration(Task<Firebase.Auth.FirebaseUser> task, string newDisplayName = null)
     {
         EnableUI();
 
@@ -191,11 +191,8 @@ public class FirebaseAuthManager : MonoBehaviour
             {
                 Debug.Log(String.Format("User Info: {0} {1}", auth.CurrentUser.Email, auth.CurrentUser.UserId));
                 UpdateUserProfile(newDisplayName: newDisplayName);
-                return true;
             }
         }
-
-        return false;
     }
 
     private void UpdateUserProfile(string newDisplayName = null)

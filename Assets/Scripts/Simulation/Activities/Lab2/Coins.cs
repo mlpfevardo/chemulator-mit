@@ -21,7 +21,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab2
         {
         }
 
-        public override bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null, List<SimulationMixableBehavior> draggedMixables = null)
+        public override bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null)
         {
             if (draggedObject != null)
             {
@@ -34,10 +34,9 @@ namespace Assets.Scripts.Simulation.Activities.Lab2
             return false;
         }
 
-        public override void OnDrop(Transform transform)
+        public override void OnDrop()
         {
-            //ImageAnimationManager.Instance.ShowAnimation(82, transform);
-            ImageAnimationManager.CreateAnimation(82, transform);
+            ImageAnimationManager.Instance.ShowAnimation(82);
         }
     }
 }

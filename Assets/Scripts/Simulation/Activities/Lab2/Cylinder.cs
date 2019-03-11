@@ -22,7 +22,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab2
         {
         }
 
-        public override bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null, List<SimulationMixableBehavior> draggedMixables = null)
+        public override bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null)
         {
             if (draggedObject != null)
             {
@@ -33,8 +33,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab2
                         if (otherMixables.Find(m => m.GetType() == draggedObject.MixtureItem.GetType()) == null)
                         {
                             // first time water
-                            //ImageAnimationManager.Instance.ShowAnimation(83, dropZoneObject.transform);
-                            ImageAnimationManager.CreateAnimation(83, dropZoneObject.transform);
+                            ImageAnimationManager.Instance.ShowAnimation(83);
                             draggedObject.SetRemoveOnEnd();
                             return true;
                         }
@@ -68,13 +67,11 @@ namespace Assets.Scripts.Simulation.Activities.Lab2
                     {
                         if ((w as Water).Volume == 50)
                         {
-                            //ImageAnimationManager.Instance.ShowAnimation(87, dropZoneObject.transform);
-                            ImageAnimationManager.CreateAnimation(87, dropZoneObject.transform);
+                            ImageAnimationManager.Instance.ShowAnimation(87);
                         }
                         else
                         {
-                            //ImageAnimationManager.Instance.ShowAnimation(88, dropZoneObject.transform);
-                            ImageAnimationManager.CreateAnimation(88, dropZoneObject.transform);
+                            ImageAnimationManager.Instance.ShowAnimation(88);
                         }
                         ModalPanel.Instance.ShowModalOK("Temperature", "The temperature is 25.0C");
                     }

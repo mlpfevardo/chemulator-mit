@@ -51,7 +51,7 @@ public class TableDropZone : MonoBehaviour, IDropHandler {
                 {
                     if (objectPool.TryGetNextObject(draggableObject.DragIndicator.transform.position, Quaternion.identity, out item))
                     {
-                        draggableObject.MixtureItem.OnDrop(item.transform);
+                        draggableObject.MixtureItem.OnDrop();
 
                         item.GetComponent<DropZoneObjectHandler>().Setup(draggableObject);
                         item.transform.SetParent(this.transform);

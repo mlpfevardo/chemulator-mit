@@ -21,7 +21,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab2
         {
         }
 
-        public override bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null, List<SimulationMixableBehavior> draggedMixables = null)
+        public override bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null)
         {
             if (draggedObject != null)
             {

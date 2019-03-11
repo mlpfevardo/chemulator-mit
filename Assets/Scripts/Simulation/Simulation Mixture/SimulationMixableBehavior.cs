@@ -14,7 +14,6 @@ public abstract class SimulationMixableBehavior
     public Sprite icon;
 
     //public SimulationMixableBehavior Parent { get; set; } = null;
-    public GameObject Parent { get; set; }
     public string MixButtonTitle { get; set; } = String.Empty;
     public int MinAllowableMix { get; set; } = 1;
     public bool AutoMix { get; set; } = false;
@@ -37,8 +36,7 @@ public abstract class SimulationMixableBehavior
         this.MinAllowableMix = otherItem.MinAllowableMix;
         this.AutoMix = otherItem.AutoMix;
     }
-
-    public virtual bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null, List<SimulationMixableBehavior> draggedMixables = null)
+    public virtual bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null)
     {
         return true;
     }
@@ -47,7 +45,7 @@ public abstract class SimulationMixableBehavior
         return true;
     }
 
-    public virtual void OnDrop(Transform transform)
+    public virtual void OnDrop()
     {
         
     }

@@ -6,19 +6,13 @@ using TMPro;
 
 public class GameTimerScript : MonoBehaviour {
 
-    public static GameTimerScript Instance = null;
-
     public TextMeshProUGUI gameTimerText;
     float gameTimer = 0f;
     bool isNotPaused = false;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
-
-    // Update is called once per frame
-    void Update () {
+	// Use this for initialization
+	
+	// Update is called once per frame
+	void Update () {
 
         gameTimer += Time.deltaTime;
 
@@ -30,15 +24,5 @@ public class GameTimerScript : MonoBehaviour {
 
         gameTimerText.SetText(timerString);
         
-    }
-
-    public float GetTime()
-    {
-        return gameTimer;
-    }
-
-    public float GetMinutes()
-    {
-        return (gameTimer / 60);
     }
 }
