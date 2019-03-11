@@ -24,7 +24,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab5
             //hasTestTube = otherRack.hasTestTube;
         }
 
-        public override bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null)
+        public override bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null, List<SimulationMixableBehavior> draggedMixables = null)
         {
             if (draggedObject != null)
             {

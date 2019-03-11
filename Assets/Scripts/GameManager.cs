@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
     //public static GameManager instance = null;
     private static GameManager instance = null;
 
-    private int requestedLabActivity = 2;
+    private int requestedLabActivity = 1;
 
     public static GameManager Instance
     {

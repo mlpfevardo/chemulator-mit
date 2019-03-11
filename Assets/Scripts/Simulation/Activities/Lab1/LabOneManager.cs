@@ -106,6 +106,10 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
             SimulationManager.instance.AddEquipmentItem(beaker150);
             SimulationMixtureManager.instance.RegisterMixable(beaker150);
 
+            var trough = new WaterTrough();
+            SimulationManager.instance.AddEquipmentItem(trough);
+            SimulationMixtureManager.instance.RegisterMixable(trough);
+
             /* MATERIALS */
             var water = new Water();
             SimulationManager.instance.AddMaterial(water);
@@ -118,6 +122,13 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
 
             var ice = new Ice();
             SimulationManager.instance.AddMaterial(ice);
+
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(beaker, water);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(beaker, ice);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(beaker150, naph);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(beaker150, dye);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(trough, beaker);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(trough, beaker150);
         }
 
         private void BuildD()
@@ -127,14 +138,15 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
             SimulationManager.instance.AddEquipmentItem(beaker);
             SimulationMixtureManager.instance.RegisterMixable(beaker);
 
-            var stand = new IronStand();
-            SimulationManager.instance.AddEquipmentItem(stand);
+            //var stand = new IronStand();
+            //SimulationManager.instance.AddEquipmentItem(stand);
 
-            var filter = new Filter();
+            var filter = new FiltrationSetup();
             SimulationManager.instance.AddEquipmentItem(filter);
+            SimulationMixtureManager.instance.RegisterMixable(filter);
 
-            var setup = new BoilSetup();
-            SimulationManager.instance.AddEquipmentItem(setup);
+            //var setup = new BoilSetup();
+            //SimulationManager.instance.AddEquipmentItem(setup);
 
             /* MATERIALS */
             var water = new Water();
@@ -145,6 +157,11 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
 
             var charcoal = new Charcoal();
             SimulationManager.instance.AddMaterial(charcoal);
+
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(beaker, water);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(beaker, sugar);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(beaker, charcoal);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(filter, beaker);
         }
 
         private void BuildC()
@@ -156,6 +173,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
 
             var setup = new DistillationSetup();
             SimulationManager.instance.AddEquipmentItem(setup);
+            SimulationMixtureManager.instance.RegisterMixable(setup);
 
             /* MATERIALS */
             var water = new Water();
@@ -169,6 +187,12 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
 
             var phenolph = new Phenolphthalein();
             SimulationManager.instance.AddMaterial(phenolph);
+
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(beaker, water);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(beaker, dye);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(beaker, ammonium);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(setup, beaker);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(setup, phenolph);
         }
 
         private void BuildB()
@@ -178,17 +202,13 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
             SimulationManager.instance.AddEquipmentItem(beaker);
             SimulationMixtureManager.instance.RegisterMixable(beaker);
 
-            var filter = new Filter();
+            var filter = new FiltrationSetup();
             SimulationManager.instance.AddEquipmentItem(filter);
+            SimulationMixtureManager.instance.RegisterMixable(filter);
 
-            var funnel = new Funnel();
-            SimulationManager.instance.AddEquipmentItem(funnel);
-
-            var funnelSupport = new FunnelSupport();
-            SimulationManager.instance.AddEquipmentItem(funnelSupport);
-
-            var stand = new IronStand();
-            SimulationManager.instance.AddEquipmentItem(stand);
+            var evap = new EvaporationSetup();
+            SimulationManager.instance.AddEquipmentItem(evap);
+            SimulationMixtureManager.instance.RegisterMixable(evap);
 
             /* MATERIALS */
             var nacl = new SodiumChloride();
@@ -199,6 +219,12 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
 
             var water = new Water();
             SimulationManager.instance.AddMaterial(water);
+
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(beaker, water);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(beaker, chalk);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(beaker, nacl);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(filter, beaker);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(evap, filter);
         }
 
         private void BuildA()
