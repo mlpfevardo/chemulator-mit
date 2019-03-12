@@ -15,7 +15,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public WaterTrough()
         {
             itemName = "Water Trough";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Equipments/WaterTrough");
+            icon = Resources.Load<Sprite>("Simulation/Lab1/Materials/WaterTrough");
             Scale = 70f;
             AutoMix = true;
         }

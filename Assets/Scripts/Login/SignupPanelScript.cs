@@ -59,6 +59,7 @@ public class SignupPanelScript : MonoBehaviour {
             //Debug.Log("COMPLETE");
             //FirebaseDatabase.DefaultInstance.GetReference("Users")
             Debug.Log("TODO: Save to database");
+
         }
         else
         {
