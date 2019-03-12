@@ -9,6 +9,7 @@ public class OnLoginButtonClick : MonoBehaviour {
     public InputField emailField;
     public InputField passwordField;
     public Text messageText;
+    public LoginPanelScript panelScript;
 
 	public async void OnClick()
     {
@@ -16,7 +17,7 @@ public class OnLoginButtonClick : MonoBehaviour {
 
         if (FirebaseAuthManager.instance != null)
         {
-            LoginPanelScript.instance.ToggleInteractability();
+            panelScript.ToggleInteractability();
 
             if (!string.IsNullOrEmpty(emailField.text) && !string.IsNullOrEmpty(passwordField.text))
             {
@@ -49,7 +50,7 @@ public class OnLoginButtonClick : MonoBehaviour {
                 messageText.text = "Email and password cannot be empty";
             }
 
-            LoginPanelScript.instance.ToggleInteractability();
+            panelScript.ToggleInteractability();
         }
         else
         {

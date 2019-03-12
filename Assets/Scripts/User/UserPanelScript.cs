@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using Firebase.Auth;
 
@@ -9,6 +10,11 @@ public class UserPanelScript : MonoBehaviour
     public TextMeshProUGUI nameText;
     public GameObject welcomePanel;
     public GameObject simulationPanel;
+    public GameObject enrollPanel;
+
+    public Button buttonEnrollClass;
+    public Button buttonCreateClass;
+
     // Use this for initialization
     void Start()
     {
@@ -18,9 +24,19 @@ public class UserPanelScript : MonoBehaviour
     {
         if (FirebaseAuth.DefaultInstance.CurrentUser != null)
         {
-            nameText.SetText(string.IsNullOrEmpty(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName) ?
-                FirebaseAuth.DefaultInstance.CurrentUser.Email :
-                FirebaseAuth.DefaultInstance.CurrentUser.DisplayName);
+            nameText.SetText(FirebaseAuthManager.instance.ActiveUserInfo.ToString());
+
+            switch(FirebaseAuthManager.instance.ActiveUserInfo.userType)
+            {
+                case UserType.Student:
+                    buttonEnrollClass.gameObject.SetActive(true);
+                    buttonCreateClass.gameObject.SetActive(false);
+                    break;
+                case UserType.Instructor:
+                    buttonEnrollClass.gameObject.SetActive(false);
+                    buttonCreateClass.gameObject.SetActive(true);
+                    break;
+            }
         }
     }
 
@@ -36,6 +52,12 @@ public class UserPanelScript : MonoBehaviour
         simulationPanel.SetActive(true);
     }
 
+    public void OnEnrollButtonClick()
+    {
+        welcomePanel.SetActive(false);
+        enrollPanel.SetActive(true);
+    }
+
     public void StartActivity(int id)
     {
         GameManager.Instance.LoadLabActivity(id);
@@ -45,7 +67,7 @@ public class UserPanelScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (simulationPanel.activeSelf)
+            if (!welcomePanel.activeSelf)
             {
                 BackToWelcomePanel();
             }
@@ -60,5 +82,6 @@ public class UserPanelScript : MonoBehaviour
     {
         welcomePanel.SetActive(true);
         simulationPanel.SetActive(false);
+        enrollPanel.SetActive(false);
     }
 }

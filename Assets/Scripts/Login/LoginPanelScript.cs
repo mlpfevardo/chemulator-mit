@@ -5,23 +5,10 @@ using UnityEngine.UI;
 
 public class LoginPanelScript : MonoBehaviour
 {
-    public static LoginPanelScript instance = null;
     public Button loginBtn;
     public Button signupBtn;
     public InputField userField;
     public InputField passField;
-
-    private void Start()
-    {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
 
     public void ToggleInteractability()
     {

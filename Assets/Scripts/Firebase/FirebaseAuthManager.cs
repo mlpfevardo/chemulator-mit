@@ -24,6 +24,8 @@ public class FirebaseAuthManager : MonoBehaviour
     public string password = "";
     public string displayName = "";
 
+    public UserInfo ActiveUserInfo { get; private set; } = null;
+
     // Flag set when a token is being fetched.  This is used to avoid printing the token
     // in IdTokenChanged() when the user presses the get token button.
     private bool fetchingToken = false;
@@ -168,7 +170,7 @@ public class FirebaseAuthManager : MonoBehaviour
         return complete;
     }
 
-    public Task<bool> CreateUser()
+    public Task<Firebase.Auth.FirebaseUser> CreateUser()
     {
         Debug.Log(String.Format("Attempting to create user {0}...", email));
         DisableUI();
@@ -178,12 +180,11 @@ public class FirebaseAuthManager : MonoBehaviour
             .ContinueWith((task) => ProcessUserRegistration(task, newDisplayName: newDisplayName)); ;
     }
 
-    private bool ProcessUserRegistration(Task<Firebase.Auth.FirebaseUser> task, string newDisplayName = null)
+    private Firebase.Auth.FirebaseUser ProcessUserRegistration(Task<Firebase.Auth.FirebaseUser> task, string newDisplayName = null)
     {
         EnableUI();
 
         // some callback functions here
-        //API.SignUpFinished(auth.CurrentUser != null, auth.CurrentUser != null ? (auth.CurrentUser.DisplayName == "") ? auth.CurrentUser.Email : auth.CurrentUser.DisplayName : "");
 
         if (LogTaskCompletion(task, "User Creation"))
         {
@@ -191,11 +192,10 @@ public class FirebaseAuthManager : MonoBehaviour
             {
                 Debug.Log(String.Format("User Info: {0} {1}", auth.CurrentUser.Email, auth.CurrentUser.UserId));
                 UpdateUserProfile(newDisplayName: newDisplayName);
-                return true;
             }
         }
 
-        return false;
+        return task.Result;
     }
 
     private void UpdateUserProfile(string newDisplayName = null)
@@ -230,7 +230,8 @@ public class FirebaseAuthManager : MonoBehaviour
         DisableUI();
 
         return auth.SignInWithEmailAndPasswordAsync(email, password)
-            .ContinueWith(HandleSignIn);
+            .ContinueWith(HandleSignIn)
+            .Unwrap();
     }
 
     //public void SigninWithCredential()
@@ -241,7 +242,7 @@ public class FirebaseAuthManager : MonoBehaviour
     //    auth.SignInWithCredentialAsync(credential).ContinueWith(HandleSignIn);
     //}
 
-    private SignInData HandleSignIn(Task<Firebase.Auth.FirebaseUser> task)
+    private async Task<SignInData> HandleSignIn(Task<Firebase.Auth.FirebaseUser> task)
     {
         password = "";
         Debug.Log("Handling");
@@ -254,6 +255,8 @@ public class FirebaseAuthManager : MonoBehaviour
         {
             data.Message = task.Result.DisplayName == "" ? task.Result.Email : task.Result.DisplayName;
             data.IsSuccessful = true;
+
+            ActiveUserInfo = await FirebaseDatabaseManager.Instance.GetUserInfo(task.Result.UserId);
         }
         catch (System.AggregateException e)
         {
@@ -373,8 +376,8 @@ public class FirebaseAuthManager : MonoBehaviour
         Debug.Log("Signing out");
 
         // callback for sign out
-        //API.SignOutFinished();
 
         auth.SignOut();
+        ActiveUserInfo = null;
     }
 }
