@@ -18,8 +18,8 @@ public class UserInfo
     public string ID;
     public string firstName;
     public string lastName;
-    [System.NonSerialized]
     public string email;
+    public string address = string.Empty;
     public UserBirthday birthday;
     public UserType userType = UserType.Student;
 

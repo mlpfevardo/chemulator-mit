@@ -5,6 +5,7 @@ using Firebase.Database;
 using System.Threading.Tasks;
 using System;
 using TMPro;
+using Assets.Scripts.Firebase.Database;
 
 public class SignupPanelScript : MonoBehaviour {
 
@@ -101,7 +102,8 @@ public class SignupPanelScript : MonoBehaviour {
                     SignupFormPanel.SetActive(false);
                     successPanel.ShowLoadingMessage();
 
-                    await FirebaseDatabaseManager.Instance.RegisterUser(user);
+                    //await FirebaseDatabaseManager.Instance.RegisterUser(user);
+                    await UserDatabase.RegisterUser(user);
                 }
                 catch (AggregateException e)
                 {

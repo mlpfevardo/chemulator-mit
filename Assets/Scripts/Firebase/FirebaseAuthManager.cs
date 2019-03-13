@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Assets.Scripts.Firebase.Database;
 using Firebase.Auth;
 using UnityEngine;
 
@@ -256,7 +257,8 @@ public class FirebaseAuthManager : MonoBehaviour
             data.Message = task.Result.DisplayName == "" ? task.Result.Email : task.Result.DisplayName;
             data.IsSuccessful = true;
 
-            ActiveUserInfo = await FirebaseDatabaseManager.Instance.GetUserInfo(task.Result.UserId);
+            //ActiveUserInfo = await FirebaseDatabaseManager.Instance.GetUserInfo(task.Result.UserId);
+            ActiveUserInfo = await UserDatabase.GetUserInfo(task.Result.UserId);
         }
         catch (System.AggregateException e)
         {

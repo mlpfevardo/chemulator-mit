@@ -11,6 +11,7 @@ public class UserPanelScript : MonoBehaviour
     public GameObject welcomePanel;
     public GameObject simulationPanel;
     public GameObject enrollPanel;
+    public GameObject viewClassPanel;
 
     public Button buttonEnrollClass;
     public Button buttonCreateClass;
@@ -58,6 +59,12 @@ public class UserPanelScript : MonoBehaviour
         enrollPanel.SetActive(true);
     }
 
+    public void OnViewClassButtonClick()
+    {
+        welcomePanel.SetActive(false);
+        viewClassPanel.SetActive(true);
+    }
+
     public void StartActivity(int id)
     {
         GameManager.Instance.LoadLabActivity(id);
@@ -83,5 +90,6 @@ public class UserPanelScript : MonoBehaviour
         welcomePanel.SetActive(true);
         simulationPanel.SetActive(false);
         enrollPanel.SetActive(false);
+        viewClassPanel.SetActive(false);
     }
 }
