@@ -28,8 +28,8 @@ namespace Assets.Scripts.Firebase.Database
                     {
                         switch (user.UserType)
                         {
-                            case UserType.Student:
-                                return StudentDatabase.RegisterStudent(user);
+                            //case UserType.Student:
+                            //    return StudentDatabase.RegisterStudent(user);
                             case UserType.Instructor:
                                 return InstructorDatabase.RegisterInstructor(user);
                         }

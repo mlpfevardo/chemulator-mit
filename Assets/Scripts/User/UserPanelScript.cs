@@ -66,6 +66,8 @@ public class UserPanelScript : MonoBehaviour
     {
         welcomePanel.SetActive(false);
         createClassPanel.SetActive(true);
+
+        createClassPanel.GetComponent<CreateClassPanelScript>().LoadRoot();
     }
 
     public void OnViewClassButtonClick()

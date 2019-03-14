@@ -9,9 +9,58 @@ using UnityEngine;
 
 namespace Assets.Scripts.Firebase.Database
 {
-    public static class ClassDatabase 
+    public static class ClassDatabase
     {
         public const string DB_NAME = "Classes";
+
+        public static Task RegisterLabClassAsync(LabClass lab)
+        {
+            DatabaseReference dbRef = FirebaseDatabase.DefaultInstance.GetReference(DB_NAME);
+
+            return dbRef.Child(lab.ID).SetRawJsonValueAsync(FirebaseJsonSerializer.SerializeObject(lab));
+        }
+
+        public static Task RegisterLabStudent(LabClass lab, UserInfo user)
+        {
+            DatabaseReference dbRef = FirebaseDatabase.DefaultInstance.GetReference(StudentDatabase.DB_NAME);
+
+            string key = dbRef.Push().Key;
+
+            var entry = new Student
+            {
+                ID = key,
+                Email = user.Email,
+                ClassKey = lab.ID,
+                UserInfo = user,
+            };
+
+            return dbRef.Child(key).SetRawJsonValueAsync(FirebaseJsonSerializer.SerializeObject(entry));
+        }
+
+        public static async Task<Instructor> GetLabInstructorAsync(LabClass lab)
+        {
+            DatabaseReference dbref = FirebaseDatabase.DefaultInstance.GetReference(InstructorDatabase.DB_NAME);
+
+            DataSnapshot instructorData = await dbref.OrderByKey().EqualTo(lab.InstructorID).LimitToFirst(1).GetValueAsync();
+
+            if (instructorData != null)
+            {
+                var instructor = instructorData.Value as Dictionary<string, object>;
+
+                if (instructor != null)
+                {
+                    var data = instructor.First();
+                    var info = JsonConvert.DeserializeObject<Instructor>(JsonConvert.SerializeObject(data.Value));
+                    info.ID = data.Key;
+
+                    info.UserInfo = await UserDatabase.GetUserInfoByEmailAsync(info.Email);
+
+                    return info;
+                }
+            }
+
+            return null;
+        }
 
         public static async Task<LabClass> GetLabClassAsync(string classkey)
         {
@@ -36,6 +85,29 @@ namespace Assets.Scripts.Firebase.Database
             return null;
         }
 
+        public static async Task<bool> IsLabHasStudent(LabClass lab, UserInfo user)
+        {
+            DatabaseReference dbref = FirebaseDatabase.DefaultInstance.GetReference(StudentDatabase.DB_NAME);
+
+            DataSnapshot studData = await dbref.OrderByChild("email").EqualTo(user.Email).GetValueAsync();
+
+            if (studData != null)
+            {
+                var data = studData.Value as IEnumerable<KeyValuePair<string, object>>;
+
+                if (data != null)
+                {
+                    foreach (KeyValuePair<string, object> d in data)
+                    {
+                        var info = d.Value as IEnumerable<KeyValuePair<string, object>>;
+                        return info.Where(m => m.Key == "classkey" && m.Value.ToString() == lab.ID) != null;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         public static async Task<IEnumerable<Student>> GetLabClassStudentsAsync(string key)
         {
             Debug.Log("Start GetStudentAsync, key=" + key);
@@ -56,7 +128,7 @@ namespace Assets.Scripts.Firebase.Database
                 {
                     var result = new List<Student>();
 
-                    foreach(KeyValuePair<string, object> student in students)
+                    foreach (KeyValuePair<string, object> student in students)
                     {
                         var info = JsonConvert.DeserializeObject<Student>(JsonConvert.SerializeObject(student.Value));
 
