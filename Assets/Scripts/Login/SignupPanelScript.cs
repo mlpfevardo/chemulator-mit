@@ -54,6 +54,12 @@ public class SignupPanelScript : MonoBehaviour {
             return;
         }
 
+        //if (!FirebaseFunctions.IsEmail(inputEmail.text))
+        //{
+        //    txtMessage.text = "Invalid email entered";
+        //    return;
+        //}
+
         if (inputPassword.text.Length < 6)
         {
             txtMessage.text = "Password should be at least 6 characters";
@@ -85,43 +91,34 @@ public class SignupPanelScript : MonoBehaviour {
 
                     var user = new UserInfo
                     {
-                        ID = result.UserId,
-                        firstName = inputFirstName.text,
-                        lastName = inputLastName.text,
-                        email = inputLastName.text,
-                        birthday = new UserBirthday
+                        FirstName = inputFirstName.text,
+                        LastName = inputLastName.text,
+                        Email = inputEmail.text,
+                        Birthday = new UserBirthday
                         {
-                            day = dt.Day,
-                            month = dt.Month,
-                            year = dt.Year
+                            Day = dt.Day,
+                            Month = dt.Month,
+                            Year = dt.Year
                         },
-                        userType = toggleStudent.isOn ? UserType.Student : UserType.Instructor,
+                        UserType = toggleStudent.isOn ? UserType.Student : UserType.Instructor,
                     };
 
                     SuccessPanel.SetActive(true);
                     SignupFormPanel.SetActive(false);
                     successPanel.ShowLoadingMessage();
 
-                    //await FirebaseDatabaseManager.Instance.RegisterUser(user);
-                    await UserDatabase.RegisterUser(user);
+                    await UserDatabase.RegisterUserAsync(user).ContinueWith(task =>
+                    {
+                        FirebaseAuthManager.instance.SignOut();
+                    });
                 }
                 catch (AggregateException e)
                 {
-                    txtMessage.text = GetFirebaseErrorMessage(e);
+                    txtMessage.text = FirebaseFunctions.GetFirebaseErrorMessage(e);
                     SuccessPanel.SetActive(false);
                     SignupFormPanel.SetActive(true);
 
-                    try
-                    {
-                        await result.DeleteAsync();
-                    }
-                    catch (AggregateException ex)
-                    {
-                        Debug.Log("Unable to delete user with failed registration");
-                        Debug.LogError(GetFirebaseErrorMessage(ex));
-                    }
-
-                    isBusy = false;
+                    RemoveUser(result);
                     return;
                 }
                 catch (FormatException e)
@@ -132,21 +129,20 @@ public class SignupPanelScript : MonoBehaviour {
                     SuccessPanel.SetActive(false);
                     SignupFormPanel.SetActive(true);
 
-                    try
-                    {
-                        await result.DeleteAsync();
-                    }
-                    catch (AggregateException ex)
-                    {
-                        Debug.Log("Unable to delete user with failed registration");
-                        Debug.LogError(GetFirebaseErrorMessage(ex));
-                    }
-
-                    isBusy = false;
+                    RemoveUser(result);
                     return;
                 }
+                catch (DatabaseException e)
+                {
+                    txtMessage.text = "A server error occurred";
+                    Debug.LogError(e.Message);
 
-                FirebaseAuthManager.instance.SignOut();
+                    SuccessPanel.SetActive(false);
+                    SignupFormPanel.SetActive(true);
+
+                    RemoveUser(result);
+                    return;
+                }
 
                 successPanel.ShowSuccessMessage();
 
@@ -160,29 +156,25 @@ public class SignupPanelScript : MonoBehaviour {
         }
         catch(AggregateException e)
         {
-            txtMessage.text = GetFirebaseErrorMessage(e);
+            txtMessage.text = FirebaseFunctions.GetFirebaseErrorMessage(e);
         }
 
         isBusy = false;
     }
 
-    private string GetFirebaseErrorMessage(AggregateException e)
+    private async void RemoveUser(Firebase.Auth.FirebaseUser user)
     {
-        foreach (var exception in e.Flatten().InnerExceptions)
+        try
         {
-            if (exception is Firebase.FirebaseException)
-            {
-                Debug.LogWarning("Firebase: " + exception.Message);
-                return exception.Message;
-            }
-            else
-            {
-                Debug.LogError(exception.Message);
-                return "An unexpected error occurred";
-            }
+            await user.DeleteAsync();
+        }
+        catch (AggregateException ex)
+        {
+            Debug.Log("Unable to delete user with failed registration");
+            Debug.LogError(FirebaseFunctions.GetFirebaseErrorMessage(ex));
         }
 
-        return "Unknown error";
+        isBusy = false;
     }
 
     private void ReturnToLogin()

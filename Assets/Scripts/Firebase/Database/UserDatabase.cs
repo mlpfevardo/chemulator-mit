@@ -1,4 +1,5 @@
 ﻿using Firebase.Database;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,20 @@ namespace Assets.Scripts.Firebase.Database
     {
         public const string DB_NAME = "MemberRecord";
 
-        public static Task RegisterUser(UserInfo user)
+        public static Task RegisterUserAsync(UserInfo user)
         {
+            Debug.Log("Start RegisterUserAsync, userId=" + user.ID);
             DatabaseReference userRef = FirebaseDatabase.DefaultInstance.GetReference(DB_NAME);
-            string json = JsonUtility.ToJson(user);
+            string id = userRef.Push().Key;
 
-            return userRef.Child(user.ID).SetRawJsonValueAsync(json)
+            user.Email = user.Email.ToLower();
+
+            return userRef.Child(id).SetRawJsonValueAsync(FirebaseJsonSerializer.SerializeObject(user))
                 .ContinueWith<Task>(task =>
                 {
                     if (task.IsCompleted)
                     {
-                        switch (user.userType)
+                        switch (user.UserType)
                         {
                             case UserType.Student:
                                 return StudentDatabase.RegisterStudent(user);
@@ -35,12 +39,39 @@ namespace Assets.Scripts.Firebase.Database
                 });
         }
 
-        public static Task<UserInfo> GetUserInfo(string userId)
+        //public static Task<UserInfo> GetUserInfoAsync(string userId)
+        //{
+        //    Debug.Log("Start GetUserInfo, userId=" + userId);
+        //    DatabaseReference userRef = FirebaseDatabase.DefaultInstance.GetReference(DB_NAME);
+
+        //    return userRef.Child(userId)
+        //        .GetValueAsync()
+        //        .ContinueWith<UserInfo>(task =>
+        //        {
+        //            if (task.IsFaulted)
+        //            {
+        //                Debug.Log("Failed to get user info: " + task.Exception.Message);
+        //            }
+        //            else if (task.IsCompleted)
+        //            {
+        //                var result = JsonConvert.DeserializeObject<UserInfo>(task.Result.GetRawJsonValue());
+        //                result.ID = task.Result.Key;
+
+        //                return result;
+        //            }
+
+        //            return null;
+        //        });
+        //}
+
+        public static Task<UserInfo> GetUserInfoByEmailAsync(string email)
         {
-            Debug.Log("Start GetUserInfo, userId=" + userId);
+            Debug.Log("Start GetUserInfoByEmail, email=" + email);
             DatabaseReference userRef = FirebaseDatabase.DefaultInstance.GetReference(DB_NAME);
 
-            return userRef.Child(userId)
+            return userRef.OrderByChild("email")
+                .EqualTo(email.ToLower())
+                .LimitToFirst(1)
                 .GetValueAsync()
                 .ContinueWith<UserInfo>(task =>
                 {
@@ -50,14 +81,59 @@ namespace Assets.Scripts.Firebase.Database
                     }
                     else if (task.IsCompleted)
                     {
-                        var result = JsonUtility.FromJson<UserInfo>(task.Result.GetRawJsonValue());
-                        result.ID = userId;
+                        var result = task.Result.Value as IDictionary<string, object>;
 
-                        return result;
+                        if (result != null && result.Count > 0)
+                        {
+                            var data = result.First();
+                            var info = JsonConvert.DeserializeObject<UserInfo>(JsonConvert.SerializeObject(data.Value));
+
+                            info.ID = data.Key;
+
+                            return info;
+                        }
                     }
 
                     return null;
                 });
+        }
+
+        public static async Task<IEnumerable<LabClass>> GetLabClasses(UserInfo user)
+        {
+            Debug.Log("Start GetLabClasses, user=" + user.ID);
+
+            if (user.UserType == UserType.Student)
+            {
+                IEnumerable<Student> studentInfos = await StudentDatabase.GetStudentInfosAsync(user);
+                var result = new List<LabClass>();
+
+                foreach(var info in studentInfos)
+                {
+                    if (result.Exists(l => l.ID == info.ClassKey))
+                    {
+                        continue;
+                    }
+
+                    var lab = await ClassDatabase.GetLabClassAsync(info.ClassKey);
+                    if (lab != null)
+                    {
+                        result.Add(lab);
+                    }
+                }
+
+                return result;
+            }
+            else if (user.UserType == UserType.Instructor)
+            {
+                Instructor instructor = await InstructorDatabase.GetInstructorInfoAsync(user);
+                return await InstructorDatabase.GetInstructorLabsAsync(instructor);
+            }
+            else
+            {
+                Debug.LogError("Unknown user type detected");
+            }
+
+            return Enumerable.Empty<LabClass>();
         }
     }
 }

@@ -257,8 +257,8 @@ public class FirebaseAuthManager : MonoBehaviour
             data.Message = task.Result.DisplayName == "" ? task.Result.Email : task.Result.DisplayName;
             data.IsSuccessful = true;
 
-            //ActiveUserInfo = await FirebaseDatabaseManager.Instance.GetUserInfo(task.Result.UserId);
-            ActiveUserInfo = await UserDatabase.GetUserInfo(task.Result.UserId);
+            //ActiveUserInfo = await UserDatabase.GetUserInfoAsync(task.Result.UserId);
+            ActiveUserInfo = await UserDatabase.GetUserInfoByEmailAsync(task.Result.Email);
         }
         catch (System.AggregateException e)
         {

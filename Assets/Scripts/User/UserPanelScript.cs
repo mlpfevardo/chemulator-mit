@@ -11,15 +11,13 @@ public class UserPanelScript : MonoBehaviour
     public GameObject welcomePanel;
     public GameObject simulationPanel;
     public GameObject enrollPanel;
-    public GameObject viewClassPanel;
+    public GameObject classesPanel;
+    public GameObject createClassPanel;
 
     public Button buttonEnrollClass;
     public Button buttonCreateClass;
 
-    // Use this for initialization
-    void Start()
-    {
-    }
+    private bool hasRun = false;
 
     private void Awake()
     {
@@ -27,7 +25,7 @@ public class UserPanelScript : MonoBehaviour
         {
             nameText.SetText(FirebaseAuthManager.instance.ActiveUserInfo.ToString());
 
-            switch(FirebaseAuthManager.instance.ActiveUserInfo.userType)
+            switch(FirebaseAuthManager.instance.ActiveUserInfo.UserType)
             {
                 case UserType.Student:
                     buttonEnrollClass.gameObject.SetActive(true);
@@ -38,6 +36,11 @@ public class UserPanelScript : MonoBehaviour
                     buttonCreateClass.gameObject.SetActive(true);
                     break;
             }
+        }
+
+        if (!hasRun)
+        {
+            BackToWelcomePanel();
         }
     }
 
@@ -59,10 +62,18 @@ public class UserPanelScript : MonoBehaviour
         enrollPanel.SetActive(true);
     }
 
+    public void OnCreateClassButtonClick()
+    {
+        welcomePanel.SetActive(false);
+        createClassPanel.SetActive(true);
+    }
+
     public void OnViewClassButtonClick()
     {
         welcomePanel.SetActive(false);
-        viewClassPanel.SetActive(true);
+        classesPanel.SetActive(true);
+
+        classesPanel.GetComponent<ClassesPanelScript>().LoadAllClasses();
     }
 
     public void StartActivity(int id)
@@ -90,6 +101,7 @@ public class UserPanelScript : MonoBehaviour
         welcomePanel.SetActive(true);
         simulationPanel.SetActive(false);
         enrollPanel.SetActive(false);
-        viewClassPanel.SetActive(false);
+        classesPanel.SetActive(false);
+        createClassPanel.SetActive(false);
     }
 }

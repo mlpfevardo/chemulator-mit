@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
-[System.Serializable]
 public class Instructor
 {
-    [System.NonSerialized]
-    public string ID;
-    public string email;
+    [JsonIgnore]
+    public string ID { get; set; }
+    public string Email { get; set; }
 }

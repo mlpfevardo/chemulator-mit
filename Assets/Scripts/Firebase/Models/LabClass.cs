@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
-[System.Serializable]
 public class LabClass
 {
-    [System.NonSerialized]
-    string ID;
-    string name;
-    string instructorID;
+    [JsonIgnore]
+    public string ID { get; set; }
+    public string Name { get; set; }
+    public string InstructorID { get; set; }
 }

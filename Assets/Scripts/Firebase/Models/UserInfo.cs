@@ -3,28 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
-[System.Serializable]
 public enum UserType
 {
     Student,
     Instructor
 }
 
-[System.Serializable]
 public class UserInfo
 {
-    [System.NonSerialized]
-    public string ID;
-    public string firstName;
-    public string lastName;
-    public string email;
-    public string address = string.Empty;
-    public UserBirthday birthday;
-    public UserType userType = UserType.Student;
+    [JsonIgnore]
+    public string ID { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Email { get; set; }
+    public string Address { get; set; } = string.Empty;
+    public UserBirthday Birthday { get; set; }
+    public UserType UserType { get; set; } = UserType.Student;
 
     public override string ToString()
     {
-        return firstName + " " + lastName;
+        return FirstName + " " + LastName;
     }
 }
