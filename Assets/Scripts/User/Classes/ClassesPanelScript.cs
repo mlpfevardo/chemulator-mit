@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ClassesPanelScript : MonoBehaviour
@@ -14,7 +15,7 @@ public class ClassesPanelScript : MonoBehaviour
         Instance = this;
     }
 
-    public void LoadClassInfoPanel(LabClass labClass)
+    public async void LoadClassInfoPanel(LabClass labClass)
     {
         if (labClass == null)
         {
@@ -22,10 +23,12 @@ public class ClassesPanelScript : MonoBehaviour
         }
         else
         {
+            Debug.Log("Load ClassesPanelScript, labClass=" + labClass.ID);
+
             yourClassesInfoPanel.SetActive(false);
             classInfoPanel.SetActive(true);
 
-            classInfoPanel.GetComponent<ClassInfoPanelScript>().LoadRoot(labClass);
+            await classInfoPanel.GetComponent<ClassInfoPanelScript>().LoadAsync(labClass);
         }
     }
 

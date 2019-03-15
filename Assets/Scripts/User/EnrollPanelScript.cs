@@ -2,11 +2,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnrollPanelScript : MonoBehaviour
+public class EnrollPanelScript : MonoBehaviour, ILoadableClass
 {
     public GameObject classInfoPanel;
     public TextMeshProUGUI textLabName;
@@ -16,9 +17,13 @@ public class EnrollPanelScript : MonoBehaviour
     public Button buttonEnroll;
     public Text textMessage;
 
-    private void Awake()
+    public async Task LoadAsync()
     {
+        Debug.Log("Start EnrollPanelScript");
+
         classInfoPanel.SetActive(false);
+        inputKey.text = string.Empty;
+        textMessage.text = string.Empty;
     }
 
     public async void OnClickEnroll()

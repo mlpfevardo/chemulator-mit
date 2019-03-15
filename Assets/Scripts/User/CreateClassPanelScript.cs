@@ -18,7 +18,7 @@ public class CreateClassPanelScript : MonoBehaviour
 
     public Text textMessage;
 
-    public const int KEYLENGTH = 6;
+    public const int KEYLENGTH = 10;
 
     public void LoadRoot()
     {

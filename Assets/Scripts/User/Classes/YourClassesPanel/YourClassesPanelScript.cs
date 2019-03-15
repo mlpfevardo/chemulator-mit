@@ -22,6 +22,8 @@ public class YourClassesPanelScript : MonoBehaviour
 
     public async void LoadClasses()
     {
+        Debug.Log("Start YourClassesPanelScript");
+
         GameObject obj;
         var classes = await UserDatabase.GetLabClasses(FirebaseAuthManager.instance.ActiveUserInfo);
 

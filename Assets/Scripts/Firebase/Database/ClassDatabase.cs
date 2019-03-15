@@ -147,5 +147,44 @@ namespace Assets.Scripts.Firebase.Database
 
             return Enumerable.Empty<Student>();
         }
+        
+        public static async Task<IEnumerable<Exercise>> GetLabClassExercises(LabClass lab)
+        {
+            Debug.Log("Start GetLabClassExercises, lab=" + lab.ID);
+            if (lab == null)
+            {
+                return Enumerable.Empty<Exercise>();
+            }
+
+            var dbRef = FirebaseDatabase.DefaultInstance.GetReference(ExerciseDatabase.DB_NAME);
+
+            DataSnapshot exerciseData = await dbRef.OrderByChild("classid").EqualTo(lab.ID).GetValueAsync();
+
+            if (exerciseData != null)
+            {
+                var exercises = exerciseData.Value as IEnumerable<KeyValuePair<string, object>>;
+
+                if (exercises != null)
+                {
+                    var result = new List<Exercise>();
+
+                    foreach(var exercise in exercises)
+                    {
+                        var info = JsonConvert.DeserializeObject<Exercise>(JsonConvert.SerializeObject(exercise.Value));
+
+                        if (info != null)
+                        {
+                            info.ID = exercise.Key;
+
+                            result.Add(info);
+                        }
+                    }
+
+                    return result;
+                }
+            }
+
+            return Enumerable.Empty<Exercise>();
+        }
     }
 }

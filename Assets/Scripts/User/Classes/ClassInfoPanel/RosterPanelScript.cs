@@ -5,13 +5,12 @@ using EZObjectPools;
 using Assets.Scripts.Firebase.Database;
 using System.Threading.Tasks;
 using TMPro;
+using System;
 
-public class RosterPanelScript : MonoBehaviour
+public class RosterPanelScript : MonoBehaviour, ILabClassInfoPanel
 {
     public GameObject rosterItemPrefab;
     public GameObject rosterList;
-
-    //public static string activeClassKey = "106xW23zQ5";// string.Empty;
 
     private static EZObjectPool objectPool = null;
 
@@ -23,23 +22,30 @@ public class RosterPanelScript : MonoBehaviour
         }
     }
 
-    public async Task LoadRosterAsync(LabClass lab)
+    public async Task LoadAsync(LabClass lab)
     {
+        Debug.Log("Start RosterPanelScript, lab=" + lab.ID);
         GameObject item;
-
-        var students = await ClassDatabase.GetLabClassStudentsAsync(lab.ID);
-        //activeClassKey = lab.ID;
 
         rosterList.transform.DetachChildren();
 
-        foreach(var student in students)
+        try
         {
-            if (objectPool.TryGetNextObject(Vector3.zero, Quaternion.identity, out item))
+            var students = await ClassDatabase.GetLabClassStudentsAsync(lab.ID);
+
+            foreach (var student in students)
             {
-                item.transform.SetParent(rosterList.transform);
-                item.transform.localScale = new Vector3(1f, 1f);
-                item.GetComponent<TextMeshProUGUI>().SetText(student.ToString());
+                if (objectPool.TryGetNextObject(Vector3.zero, Quaternion.identity, out item))
+                {
+                    item.transform.SetParent(rosterList.transform);
+                    item.transform.localScale = new Vector3(1f, 1f);
+                    item.GetComponent<TextMeshProUGUI>().SetText(student.ToString());
+                }
             }
+        }
+        catch(AggregateException e)
+        {
+            Debug.LogError(FirebaseFunctions.GetFirebaseErrorMessage(e));
         }
     }
 }

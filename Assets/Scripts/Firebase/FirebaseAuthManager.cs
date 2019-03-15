@@ -171,6 +171,11 @@ public class FirebaseAuthManager : MonoBehaviour
         return complete;
     }
 
+    public bool IsInstructor()
+    {
+        return ActiveUserInfo.UserType == UserType.Instructor;
+    }
+
     public Task<Firebase.Auth.FirebaseUser> CreateUser()
     {
         Debug.Log(String.Format("Attempting to create user {0}...", email));

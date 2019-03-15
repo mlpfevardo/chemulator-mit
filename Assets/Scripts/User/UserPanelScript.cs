@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Firebase.Auth;
+using System.Threading.Tasks;
 
 public class UserPanelScript : MonoBehaviour
 {
+    public static UserPanelScript Instance { get; private set; }
     public TextMeshProUGUI nameText;
     public GameObject welcomePanel;
     public GameObject simulationPanel;
@@ -18,9 +20,12 @@ public class UserPanelScript : MonoBehaviour
     public Button buttonCreateClass;
 
     private bool hasRun = false;
+    private bool defaultBackStack = true;
 
     private void Awake()
     {
+        Instance = this;
+
         if (FirebaseAuth.DefaultInstance.CurrentUser != null)
         {
             nameText.SetText(FirebaseAuthManager.instance.ActiveUserInfo.ToString());
@@ -60,6 +65,8 @@ public class UserPanelScript : MonoBehaviour
     {
         welcomePanel.SetActive(false);
         enrollPanel.SetActive(true);
+
+        enrollPanel.GetComponent<ILoadableClass>().LoadAsync();
     }
 
     public void OnCreateClassButtonClick()
@@ -85,7 +92,7 @@ public class UserPanelScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && defaultBackStack)
         {
             if (!welcomePanel.activeSelf)
             {
@@ -96,6 +103,11 @@ public class UserPanelScript : MonoBehaviour
                 Application.Quit();
             }
         }
+    }
+
+    public void OverrideBackStack(bool b)
+    {
+        defaultBackStack = b;
     }
 
     public void BackToWelcomePanel()
