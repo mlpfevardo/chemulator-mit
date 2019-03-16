@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ViewExerciseButtonScript : MonoBehaviour
 {
-
     public Exercise Exercise { get; set; }
 
     public void OnClick()

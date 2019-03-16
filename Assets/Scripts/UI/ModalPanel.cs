@@ -65,11 +65,11 @@ public class ModalPanel : MonoBehaviour
             yesButton.onClick.AddListener(yesEvent);
         }
 
+        noButton.onClick.AddListener(ClosePanel);
         if (noEvent != null)
         {
             noButton.GetComponentInChildren<TextMeshProUGUI>().text = noText;
-            noButton.onClick.AddListener(ClosePanel);
-            noButton.onClick.AddListener(yesEvent);
+            noButton.onClick.AddListener(noEvent);
             noButton.gameObject.SetActive(true);
         }
         else

@@ -100,7 +100,10 @@ namespace Assets.Scripts.Firebase.Database
                     foreach (KeyValuePair<string, object> d in data)
                     {
                         var info = d.Value as IEnumerable<KeyValuePair<string, object>>;
-                        return info.Where(m => m.Key == "classkey" && m.Value.ToString() == lab.ID) != null;
+                        if (info.Where(m => m.Key == "classkey" && m.Value.ToString() == lab.ID) != null)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
@@ -148,7 +151,7 @@ namespace Assets.Scripts.Firebase.Database
             return Enumerable.Empty<Student>();
         }
         
-        public static async Task<IEnumerable<Exercise>> GetLabClassExercises(LabClass lab)
+        public static async Task<IEnumerable<Exercise>> GetLabClassExercisesAsync(LabClass lab)
         {
             Debug.Log("Start GetLabClassExercises, lab=" + lab.ID);
             if (lab == null)

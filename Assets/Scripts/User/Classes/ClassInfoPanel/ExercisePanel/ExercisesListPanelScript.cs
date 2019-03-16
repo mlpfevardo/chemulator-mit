@@ -36,7 +36,7 @@ public class ExercisesListPanelScript : MonoBehaviour, ILabClassInfoPanel
 
         try
         {
-            var exercises = await ClassDatabase.GetLabClassExercises(lab);
+            var exercises = await ClassDatabase.GetLabClassExercisesAsync(lab);
 
             foreach (var exer in exercises)
             {
@@ -45,6 +45,8 @@ public class ExercisesListPanelScript : MonoBehaviour, ILabClassInfoPanel
                     item.transform.SetParent(exercisesList.transform);
                     item.transform.localScale = new Vector3(1f, 1f);
                     item.GetComponentInChildren<TextMeshProUGUI>().SetText(exer.Name);
+
+                    item.GetComponent<ViewExerciseButtonScript>().Exercise = exer;
                 }
             }
         }

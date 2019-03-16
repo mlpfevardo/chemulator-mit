@@ -10,23 +10,38 @@ public class ExerciseInfoPanelScript : MonoBehaviour
 {
     public TextMeshProUGUI txtMaxAttempt;
     public TextMeshProUGUI txtTimeLimit;
+    public TextMeshProUGUI txtName;
     public GameObject btnEdit;
     public GameObject btnDelete;
+    public GameObject btnViewAnswer;
     private Exercise activeExercise;
+
+    public GameObject overviewPanel;
+    public GameObject answerPanel;
 
 
     public async Task LoadAsync(Exercise exercise)
     {
         Debug.Log("Start ExerciseInfoPanel, exercise=" + exercise.ID);
+
+        answerPanel.SetActive(false);
+        overviewPanel.SetActive(true);
+
         activeExercise = exercise;
+        txtMaxAttempt.text = $"Max Attempt: {exercise.MaxAttempts}";
+        txtTimeLimit.text = $"Time Limit: {exercise.TimeLimit} minute(s)";
+        txtName.text = exercise.Name;
 
         btnDelete.gameObject.SetActive(FirebaseAuthManager.instance.IsInstructor());
-
+        btnEdit.gameObject.SetActive(FirebaseAuthManager.instance.IsInstructor());
     }
 
     public void OnEditButtonClick()
     {
-        ExercisesPanelScript.Instance.LoadCreateExercisePanel(activeExercise);
+        if (FirebaseAuthManager.instance.IsInstructor())
+        {
+            ExercisesPanelScript.Instance.LoadCreateExercisePanel(activeExercise);
+        }
     }
 
     public void OnDeleteButtonClick()

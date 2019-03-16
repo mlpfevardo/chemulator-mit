@@ -51,5 +51,7 @@ public class ClassInfoPanelScript : MonoBehaviour, ILabClassInfoPanel
         viewClassInfoRoot.SetActive(false);
         exercisePanel.SetActive(false);
         gradesPanel.SetActive(true);
+
+        await gradesPanel.GetComponent<GradesPanelScript>().LoadAsync(labClass);
     }
 }

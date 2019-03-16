@@ -31,6 +31,8 @@ public class CreateExercisePanelScript : MonoBehaviour, ILabClassInfoPanel
 
     public async Task LoadAsync(LabClass lab)
     {
+        Debug.Log("Start CreateExercisePanel, lab=" + lab.ID);
+
         firstPagePanel.SetActive(true);
         secondPagePanel.SetActive(false);
         thirdPagePanel.SetActive(false);
@@ -51,6 +53,8 @@ public class CreateExercisePanelScript : MonoBehaviour, ILabClassInfoPanel
 
     public async Task LoadAsync(Exercise exercise)
     {
+        Debug.Log("Start CreateExercisePanel, exercise=" + exercise.ID);
+
         activeExercise = exercise;
 
         firstPagePanel.SetActive(true);
@@ -73,7 +77,7 @@ public class CreateExercisePanelScript : MonoBehaviour, ILabClassInfoPanel
 
     public void OnCancel()
     {
-        ModalPanel.Instance.ShowModalYesNo("Confirm", "This exercise will not be created. Are you sure you want to cancel?", GoBack, () => { });
+        ModalPanel.Instance.ShowModalYesNo("Confirm", "Changes will not be saved. Are you sure you want to cancel?", GoBack, () => { });
     }
 
     public void OnBackFirstPage()
@@ -152,17 +156,14 @@ public class CreateExercisePanelScript : MonoBehaviour, ILabClassInfoPanel
             }
             else
             {
-                await ExerciseDatabase.RegisterExercise(new Exercise
-                {
-                    ClassID = activeExercise.ClassID,
-                    MaxAttempts = attempts,
-                    TimeLimit = timelimit,
-                    Name = inputName.text,
-                    Instructions = inputInstructions.text,
-                    ID = activeExercise.ID,
-                });
+                activeExercise.MaxAttempts = attempts;
+                activeExercise.TimeLimit = timelimit;
+                activeExercise.Name = inputName.text;
+                activeExercise.Instructions = inputInstructions.text;
 
-                ModalPanel.Instance.ShowModalOK("Exercise Update", "This exercise has been successfully updated", GoBack);
+                await ExerciseDatabase.UpdateExercise(activeExercise);
+
+                ModalPanel.Instance.ShowModalOK("Exercise Updated", "This exercise has been successfully updated", GoBack);
             }
         }
         catch (AggregateException e)
@@ -176,6 +177,7 @@ public class CreateExercisePanelScript : MonoBehaviour, ILabClassInfoPanel
     private async void GoBack()
     {
         UserPanelScript.Instance.OverrideBackStack(false);
+
         if (activeExercise == null)
         {
             await ExercisesPanelScript.Instance.LoadAsync(activeLab);
