@@ -17,16 +17,16 @@ public class ViewStudentGradeScript : MonoBehaviour
         this.lab = labClass;
     }
 
-    // Load Student View
-    public async Task LoadAsync(LabClass labClass)
-    {
-        Debug.Log($"Start ViewStudentGradeScript, labClass={labClass.ID}");
-        this.student = null;
-        this.lab = labClass;
-    }
+    //// Load Student View
+    //public async Task LoadAsync(LabClass labClass)
+    //{
+    //    Debug.Log($"Start ViewStudentGradeScript, labClass={labClass.ID}");
+    //    this.student = null;
+    //    this.lab = labClass;
+    //}
 
     public void OnClick()
     {
-
+        GradesPanelScript.Instance.LoadGradeInfo(student, lab);
     }
 }

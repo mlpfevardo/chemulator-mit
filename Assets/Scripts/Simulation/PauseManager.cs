@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class PauseManager : MonoBehaviour
 {
     public GameObject buttonContainer;
+    public GameObject exerciseCanvas;
 
     public delegate void OnPauseAction();
     public static event OnPauseAction OnPause;
@@ -71,6 +72,13 @@ public class PauseManager : MonoBehaviour
         {
             Debug.LogWarning("You are adding a button while the pause menu is not present.");
         }
+    }
+
+    public void ShowExercise()
+    {
+        Debug.Log("Activate exercise");
+
+        exerciseCanvas.SetActive(true);
     }
 
     private void TogglePauseMenu(bool show)

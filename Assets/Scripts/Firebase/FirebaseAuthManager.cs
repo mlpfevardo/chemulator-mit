@@ -26,6 +26,7 @@ public class FirebaseAuthManager : MonoBehaviour
     public string displayName = "";
 
     public UserInfo ActiveUserInfo { get; private set; } = null;
+    private object userTypeInfo = null;
 
     // Flag set when a token is being fetched.  This is used to avoid printing the token
     // in IdTokenChanged() when the user presses the get token button.
@@ -176,6 +177,16 @@ public class FirebaseAuthManager : MonoBehaviour
         return ActiveUserInfo.UserType == UserType.Instructor;
     }
 
+    public Instructor GetInstructorInfo()
+    {
+        return IsInstructor() ? (Instructor)userTypeInfo : null;
+    }
+
+    public Student GetStudentInfo()
+    {
+        return !IsInstructor() ? (Student)userTypeInfo : null;
+    }
+
     public Task<Firebase.Auth.FirebaseUser> CreateUser()
     {
         Debug.Log(String.Format("Attempting to create user {0}...", email));
@@ -264,6 +275,14 @@ public class FirebaseAuthManager : MonoBehaviour
 
             //ActiveUserInfo = await UserDatabase.GetUserInfoAsync(task.Result.UserId);
             ActiveUserInfo = await UserDatabase.GetUserInfoByEmailAsync(task.Result.Email);
+            if (IsInstructor())
+            {
+                userTypeInfo = await InstructorDatabase.GetInstructorInfoAsync(ActiveUserInfo);
+            }
+            else if (ActiveUserInfo.UserType == UserType.Student)
+            {
+                userTypeInfo = ((await StudentDatabase.GetStudentInfosAsync(ActiveUserInfo)) as List<Student>)[0];
+            }
         }
         catch (System.AggregateException e)
         {

@@ -31,7 +31,7 @@ namespace Assets.Scripts.Firebase.Database
 
         public static async Task<IEnumerable<Student>> GetStudentInfosAsync(UserInfo user)
         {
-            Debug.Log("Start GetStudentInfosAsync, user=" + user.ID);
+            Debug.Log("Start GetStudentInfosAsync, user=" + user?.ID);
             if (user.UserType != UserType.Student)
             {
                 return Enumerable.Empty<Student>();
@@ -67,6 +67,46 @@ namespace Assets.Scripts.Firebase.Database
             }
 
             return Enumerable.Empty<Student>();
+        }
+
+        public static async Task<IEnumerable<StudentGrade>> GetStudentGradesAsync(Student student, LabClass labClass)
+        {
+            Debug.Log($"GetStudentGradesAsync, student={student?.ID} labClass={labClass?.ID}");
+
+            if (student == null || labClass == null)
+            {
+                return Enumerable.Empty<StudentGrade>();
+            }
+
+            var dbRef = FirebaseDatabase.DefaultInstance.GetReference(GradeDatabase.DB_NAME);
+
+            DataSnapshot gradeData = await dbRef.OrderByChild("studentid").EqualTo(student.ID).GetValueAsync();
+
+            if (gradeData != null)
+            {
+                var grades = gradeData.Value as IEnumerable<KeyValuePair<string, object>>;
+
+                if (grades != null)
+                {
+                    var result = new List<StudentGrade>();
+
+                    foreach (var grade in grades)
+                    {
+                        var info = JsonConvert.DeserializeObject<StudentGrade>(JsonConvert.SerializeObject(grade.Value));
+
+                        if (info != null)
+                        {
+                            info.ID = grade.Key;
+
+                            result.Add(info);
+                        }
+                    }
+
+                    return result;
+                }
+            }
+
+            return Enumerable.Empty<StudentGrade>();
         }
     }
 }

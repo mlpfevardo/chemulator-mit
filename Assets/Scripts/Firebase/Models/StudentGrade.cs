@@ -17,6 +17,7 @@ public class StudentGrade
     public string ID { get; set; }
     public string StudentID { get; set; }
     public string ExperimentID { get; set; }
+    public string ClassID { get; set; }
     public GradeType GradeType { get; set; }
     public double Score { get; set; }
 }

@@ -24,41 +24,24 @@ public class GradeListPanelScript : MonoBehaviour, ILabClassInfoPanel
 
     public async Task LoadAsync(LabClass lab)
     {
-        Debug.Log("Start GradesPanelScript, lab=" + lab.ID);
+        Debug.Log("Start GradesListPanelScript, lab=" + lab.ID);
         GameObject item;
 
         studentList.transform.DetachChildren();
 
         try
         {
-            if (FirebaseAuthManager.instance.IsInstructor())
-            {
-                var students = await ClassDatabase.GetLabClassStudentsAsync(lab.ID);
+            // load list of students
+            var students = await ClassDatabase.GetLabClassStudentsAsync(lab.ID);
 
-                foreach (var student in students)
-                {
-                    if (objectPool.TryGetNextObject(Vector3.zero, Quaternion.identity, out item))
-                    {
-                        item.transform.SetParent(studentList.transform);
-                        item.transform.localScale = new Vector3(1f, 1f);
-                        item.GetComponentInChildren<TextMeshProUGUI>().SetText(student.ToString());
-                        item.GetComponent<ViewStudentGradeScript>().LoadAsync(student, lab);
-                    }
-                }
-            }
-            else
+            foreach (var student in students)
             {
-                var exercises = await ClassDatabase.GetLabClassExercisesAsync(lab);
-
-                foreach (var exer in exercises)
+                if (objectPool.TryGetNextObject(Vector3.zero, Quaternion.identity, out item))
                 {
-                    if (objectPool.TryGetNextObject(Vector3.zero, Quaternion.identity, out item))
-                    {
-                        item.transform.SetParent(studentList.transform);
-                        item.transform.localScale = new Vector3(1f, 1f);
-                        item.GetComponentInChildren<TextMeshProUGUI>().SetText(exer.Name);
-                        item.GetComponent<ViewStudentGradeScript>().LoadAsync(lab);
-                    }
+                    item.transform.SetParent(studentList.transform);
+                    item.transform.localScale = new Vector3(1f, 1f);
+                    item.GetComponentInChildren<TextMeshProUGUI>().SetText(student.ToString());
+                    item.GetComponent<ViewStudentGradeScript>().LoadAsync(student, lab);
                 }
             }
         }
