@@ -12,6 +12,9 @@ public class StartupHandler : MonoBehaviour {
         if (FirebaseManager.instance == null || FirebaseAuthManager.instance == null)
         {
             Debug.Log("Firebase not initialized");
+            string str = FirebaseManager.instance == null ? "MNG" : "";
+            str += FirebaseAuthManager.instance == null ? "AUTH" : "";
+            ModalPanel.Instance.ShowModalOK("Firebase Error", "An error occurred while initializing Firebase communications. Err: INIT_FAILED_");
         }
         else
         {
