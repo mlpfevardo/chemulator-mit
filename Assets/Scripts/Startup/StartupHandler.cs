@@ -14,7 +14,7 @@ public class StartupHandler : MonoBehaviour {
             Debug.Log("Firebase not initialized");
             string str = FirebaseManager.instance == null ? "MNG" : "";
             str += FirebaseAuthManager.instance == null ? "AUTH" : "";
-            ModalPanel.Instance.ShowModalOK("Firebase Error", "An error occurred while initializing Firebase communications. Err: INIT_FAILED_");
+            ModalPanel.Instance.ShowModalOK("Firebase Error", "An error occurred while initializing Firebase communications. Err: INIT_FAILED_" + str);
         }
         else
         {
