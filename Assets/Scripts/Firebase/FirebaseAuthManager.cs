@@ -89,6 +89,11 @@ public class FirebaseAuthManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (instance == this)
+        {
+            instance = null;
+        }
+
         auth.StateChanged -= AuthStateChanged;
         auth.IdTokenChanged -= IdTokenChanged;
         auth = null;

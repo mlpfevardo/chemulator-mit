@@ -26,6 +26,14 @@ public class FirebaseManager : MonoBehaviour {
         InitializeFirebase();
     }
 
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
+    }
+
     void InitializeFirebase()
     {
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(DATABASE_URL);
