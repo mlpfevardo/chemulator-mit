@@ -147,7 +147,9 @@ public class SignupPanelScript : MonoBehaviour {
                 successPanel.ShowSuccessMessage();
 
                 await Task.Delay(2500);
-                ReturnToLogin();
+                var signin = await FirebaseAuthManager.instance.SigninWithEmailAsync();
+                SceneStorageManager.Instance.ChangeScene(SceneStorageManager.Scenes.User, true);
+                //ReturnToLogin();
             }
             else
             {
