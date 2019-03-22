@@ -286,7 +286,7 @@ public class FirebaseAuthManager : MonoBehaviour
             }
             else if (ActiveUserInfo.UserType == UserType.Student)
             {
-                userTypeInfo = ((await StudentDatabase.GetStudentInfosAsync(ActiveUserInfo)) as List<Student>)[0];
+                userTypeInfo = ((await StudentDatabase.GetStudentInfosAsync(ActiveUserInfo)) as List<Student>)?[0];
             }
         }
         catch (System.AggregateException e)
