@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 public class TableDropZone : MonoBehaviour, IDropHandler {
 
     public GameObject itemIndicatorPrefab;
-    public static TableDropZone instance;
+    public static TableDropZone Instance { get; private set; }
 
     private EZObjectPool objectPool;
     
@@ -19,7 +19,7 @@ public class TableDropZone : MonoBehaviour, IDropHandler {
 
         //if (!instance)
         //{
-            instance = this;
+            Instance = this;
             //DontDestroyOnLoad(gameObject);
         //}
     }
@@ -34,6 +34,19 @@ public class TableDropZone : MonoBehaviour, IDropHandler {
         foreach (Transform child in this.transform)
         {
             child.gameObject.SetActive(false);
+        }
+    }
+
+    public void AddObject(SimulationMixableBehavior element, Vector3 position, Quaternion rotation)
+    {
+        Debug.Log($"Start TableDropZone_AddObject, element={element.GetItemId()} x={position.x} y={position.y}");
+        GameObject item;
+
+        if (objectPool.TryGetNextObject(position, Quaternion.identity, out item))
+        {
+            item.GetComponent<DropZoneObjectHandler>().Setup(element);
+            item.transform.SetParent(this.transform);
+            item.transform.localScale = new Vector3(element.Scale, element.Scale);
         }
     }
 

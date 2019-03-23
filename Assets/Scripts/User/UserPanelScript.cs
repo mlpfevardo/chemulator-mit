@@ -59,6 +59,8 @@ public class UserPanelScript : MonoBehaviour
     {
         welcomePanel.SetActive(false);
         simulationPanel.SetActive(true);
+
+        simulationPanel.GetComponent<SimulationPanelScript>().LoadAsync();
     }
 
     public void OnEnrollButtonClick()

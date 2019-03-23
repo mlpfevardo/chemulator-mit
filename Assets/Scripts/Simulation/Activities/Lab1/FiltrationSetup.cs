@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab1
 {
+    [System.Serializable]
     public class FiltrationSetup : SimulationMixableBehavior
     {
         public bool FilterComplete { get; set; } = false;
@@ -19,8 +20,9 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
             AutoMix = true;
         }
 
-        public FiltrationSetup(SimulationMixableBehavior otherItem) : base(otherItem)
+        public FiltrationSetup(FiltrationSetup otherItem) : base(otherItem)
         {
+            FilterComplete = otherItem.FilterComplete;
         }
 
         public override bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null, List<SimulationMixableBehavior> draggedMixables = null)

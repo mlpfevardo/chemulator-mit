@@ -25,6 +25,15 @@ public class DropZoneObjectHandler : DraggableObjectBehavior, IPointerClickHandl
         SetIcon(this.MixtureItem.icon);
     }
 
+    public void Setup(SimulationMixableBehavior element)
+    {
+        this.moveToFinalPosition = true;
+        this.MixtureItem = element;
+        this.MixtureItem.Parent = this.gameObject;
+
+        SetIcon(this.MixtureItem.icon);
+    }
+
     public void SetIcon(Sprite icon)
     {
         this.GetComponent<SpriteRenderer>().sprite = icon;

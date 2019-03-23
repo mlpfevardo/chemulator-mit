@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using EZObjectPools;
 using UnityEngine.Events;
+using System;
 
 public class PauseManager : MonoBehaviour
 {
@@ -79,6 +80,22 @@ public class PauseManager : MonoBehaviour
         Debug.Log("Activate exercise");
 
         exerciseCanvas.SetActive(true);
+    }
+
+    public async void SaveActivity()
+    {
+        TogglePauseMenu(false);
+        try
+        {
+            await GameStateManagerScript.Instance.SaveState();
+            ModalPanel.Instance.ShowModalOK("Save Success", "Data has been saved", () => TogglePauseMenu(true));
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Save activity failed");
+            Debug.LogError(e.Message);
+            ModalPanel.Instance.ShowModalOK("Save Failed", "Unable to save your data", () => TogglePauseMenu(true));
+        }
     }
 
     private void TogglePauseMenu(bool show)

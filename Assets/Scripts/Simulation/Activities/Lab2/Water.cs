@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab2
 {
+    [System.Serializable]
     public class Water : SimulationMixableBehavior
     {
         public int Volume { get; set; } = 0;
@@ -17,8 +17,9 @@ namespace Assets.Scripts.Simulation.Activities.Lab2
             icon = Resources.Load<Sprite>("Simulation/Lab2/Materials/Water");
         }
 
-        public Water(SimulationMixableBehavior otherItem) : base(otherItem)
+        public Water(Water otherItem) : base(otherItem)
         {
+            Volume = otherItem.Volume;
         }
     }
 }

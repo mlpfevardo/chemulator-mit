@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab1
 {
+    [System.Serializable]
     public class DistillationSetup : SimulationMixableBehavior
     {
         public bool ForPhenolph { get; private set; } = false;
@@ -19,8 +20,9 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
             AutoMix = true;
         }
 
-        public DistillationSetup(SimulationMixableBehavior otherItem) : base(otherItem)
+        public DistillationSetup(DistillationSetup otherItem) : base(otherItem)
         {
+            ForPhenolph = otherItem.ForPhenolph;
         }
 
         public override bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null, List<SimulationMixableBehavior> draggedMixables = null)

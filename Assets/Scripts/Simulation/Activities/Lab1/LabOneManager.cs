@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab1
 {
+    [System.Serializable]
     public class LabOneManager : SimulationActivityBehavior
     {
         public enum LabPart

@@ -2,6 +2,7 @@
 
 namespace Assets.Scripts.Simulation.Activities.Lab5
 {
+    [System.Serializable]
     public class Naphthalene : SimulationMixableBehavior
     {
         public Naphthalene()

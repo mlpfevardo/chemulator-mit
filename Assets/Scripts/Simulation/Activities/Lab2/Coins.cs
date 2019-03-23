@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab2
 {
+    [System.Serializable]
     public class Coins : SimulationMixableBehavior
     {
         public Coins()

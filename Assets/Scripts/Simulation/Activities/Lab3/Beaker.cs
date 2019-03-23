@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab3
 {
+    [System.Serializable]
     public class Beaker : SimulationMixableBehavior
     {
         public int Volume { get; set; } = 0;
@@ -31,8 +32,9 @@ namespace Assets.Scripts.Simulation.Activities.Lab3
             AutoMix = true;
         }
 
-        public Beaker(SimulationMixableBehavior otherItem) : base(otherItem)
+        public Beaker(Beaker otherItem) : base(otherItem)
         {
+            Volume = otherItem.Volume;
         }
     }
 }

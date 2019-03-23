@@ -17,7 +17,7 @@ public abstract class SimulationActivityBehavior
 
     protected void Reset()
     {
-        TableDropZone.instance.RemoveObjects();
+        TableDropZone.Instance.RemoveObjects();
         SimulationManager.instance.ClearList();
         SimulationMixtureManager.instance.ResetData();
     }

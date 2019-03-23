@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab5
 {
+    [System.Serializable]
     public class LabFiveManager : SimulationActivityBehavior
     {
         private Rack rack;
@@ -49,7 +50,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab5
         }
         public override void Finish()
         {
-            TableDropZone.instance.RemoveObjects();
+            TableDropZone.Instance.RemoveObjects();
             SimulationManager.instance.ClearList(true, true);
             ModalPanel.Instance.ShowModalOK("Activity Finished", "You have successfully finished this activity.");
         }

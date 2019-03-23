@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab1
 {
+    [System.Serializable]
     public class Beaker : SimulationMixableBehavior
     {
         public int Volume { get; set; } = 0;
@@ -35,8 +36,12 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
             AutoMix = true;
         }
 
-        public Beaker(SimulationMixableBehavior otherItem) : base(otherItem)
+        public Beaker(Beaker otherItem) : base(otherItem)
         {
+            Volume = otherItem.Volume;
+            isAvailable = otherItem.isAvailable;
+            currentTime = otherItem.currentTime;
+            isMixing = otherItem.isMixing;
         }
 
         public override bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null, List<SimulationMixableBehavior> draggedMixables = null)

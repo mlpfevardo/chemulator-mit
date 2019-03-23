@@ -75,6 +75,12 @@ public class SimulationManager : MonoBehaviour
             PauseManager.OnPause += activeActivity.OnPause;
             activeActivity.Setup();
             RefreshList();
+            
+            if (GameStateManagerScript.Instance.HasSavedState())
+            {
+                LoadActivityFromState();
+                Debug.Log("Has save state");
+            }
         }
 
         Debug.Log("Requested activity for " + GameManager.Instance.CurrentLabActivity);
@@ -116,6 +122,15 @@ public class SimulationManager : MonoBehaviour
         }
         //SceneStorageManager.Instance.LoadPreviousScene();
         SceneStorageManager.Instance.ChangeScene(SceneStorageManager.Scenes.User, true);
+    }
+
+    private async void LoadActivityFromState()
+    {
+        var data = await GameStateManagerScript.Instance.LoadState();
+        if (data.activityId == GameManager.Instance.CurrentLabActivity)
+        {
+
+        }
     }
 
     private void Update()

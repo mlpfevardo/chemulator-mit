@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab1
 {
+    [System.Serializable]
     public class Naphthalene : SimulationMixableBehavior
     {
         public Naphthalene()

@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab1
 {
+    [System.Serializable]
     public class WaterTrough : SimulationMixableBehavior
     {
         private float currentTime = 0f;
@@ -20,8 +21,10 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
             AutoMix = true;
         }
 
-        public WaterTrough(SimulationMixableBehavior otherItem) : base(otherItem)
+        public WaterTrough(WaterTrough otherItem) : base(otherItem)
         {
+            currentTime = otherItem.currentTime;
+            count = otherItem.count;
         }
 
         public override bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null, List<SimulationMixableBehavior> draggedMixables = null)

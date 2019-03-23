@@ -59,6 +59,12 @@ public class PartSelectorPanel : MonoBehaviour
             AddButton(todo);
         }
 
+        AddButton(new SelectorButton
+        {
+            title = "Cancel",
+            action = null,
+        });
+
         Time.timeScale = 0f;
     }
 
@@ -72,7 +78,7 @@ public class PartSelectorPanel : MonoBehaviour
 
             btn.ClearListeners();
             btn.AddClickListener(CloseSelector);
-            btn.AddClickListener(action.action);
+            btn.AddClickListener(action?.action);
             btn.SetText(action.title);
 
             obj.transform.SetParent(buttonContainer.transform, false);

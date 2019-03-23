@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab3
 {
+    [System.Serializable]
     public class SodiumCarbonate : SimulationMixableBehavior
     {
         public SodiumCarbonate()

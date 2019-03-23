@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab5
 {
+    [System.Serializable]
     public class MicroTestTube : SimulationMixableBehavior
     {
         public MicroTestTube()

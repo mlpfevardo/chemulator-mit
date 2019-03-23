@@ -2,6 +2,7 @@
 
 namespace Assets.Scripts.Simulation.Activities.Lab5
 {
+    [System.Serializable]
     public class SodiumChloride : SimulationMixableBehavior
     {
         public SodiumChloride()

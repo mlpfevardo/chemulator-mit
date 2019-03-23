@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab4
 {
+    [System.Serializable]
     public class GlassTube : SimulationMixableBehavior
     {
         public GlassTube()

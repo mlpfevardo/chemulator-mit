@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab5
 {
+    [System.Serializable]
     public class Rack : SimulationMixableBehavior
     {
         private bool hasTestTube = false;
@@ -21,7 +22,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab5
 
         public Rack(Rack otherRack) : base(otherRack)
         {
-            //hasTestTube = otherRack.hasTestTube;
+            hasTestTube = otherRack.hasTestTube;
         }
 
         public override bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null, List<SimulationMixableBehavior> draggedMixables = null)

@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Simulation.Activities.Lab3
 {
+    [System.Serializable]
     public class LabThreeManager : SimulationActivityBehavior
     {
         public override string ID

@@ -11,10 +11,12 @@ public abstract class SimulationMixableBehavior
 {
     private string itemId = Guid.NewGuid().ToString();
     public string itemName;
+    [System.NonSerialized]
     public Sprite icon;
 
     //public SimulationMixableBehavior Parent { get; set; } = null;
-    public GameObject Parent { get; set; }
+    [System.NonSerialized]
+    public GameObject Parent;
     public string MixButtonTitle { get; set; } = String.Empty;
     public int MinAllowableMix { get; set; } = 1;
     public bool AutoMix { get; set; } = false;
@@ -36,6 +38,7 @@ public abstract class SimulationMixableBehavior
         this.MixButtonTitle = otherItem.MixButtonTitle;
         this.MinAllowableMix = otherItem.MinAllowableMix;
         this.AutoMix = otherItem.AutoMix;
+        this.Scale = otherItem.Scale;
     }
 
     public virtual bool DoMix(List<SimulationMixableBehavior> otherMixables, DropZoneObjectHandler dropZoneObject, DraggableObjectBehavior draggedObject = null, List<SimulationMixableBehavior> draggedMixables = null)

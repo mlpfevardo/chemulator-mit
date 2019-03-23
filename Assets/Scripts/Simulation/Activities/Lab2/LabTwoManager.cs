@@ -11,6 +11,7 @@ using UnityEngine.Events;
 
 namespace Assets.Scripts.Simulation.Activities.Lab2
 {
+    [System.Serializable]
     public class LabTwoManager : SimulationActivityBehavior
     {
         Coins coins = new Coins();
