@@ -263,6 +263,18 @@ public class FirebaseAuthManager : MonoBehaviour
     //    Firebase.Auth.Credential credential = Firebase.Auth.EmailAuthProvider.GetCredential(email, password);
     //    auth.SignInWithCredentialAsync(credential).ContinueWith(HandleSignIn);
     //}
+    private async Task UpdateUserData(string email)
+    {
+        ActiveUserInfo = await UserDatabase.GetUserInfoByEmailAsync(email);
+        if (IsInstructor())
+        {
+            userTypeInfo = await InstructorDatabase.GetInstructorInfoAsync(ActiveUserInfo);
+        }
+        else if (ActiveUserInfo.UserType == UserType.Student)
+        {
+            userTypeInfo = ((await StudentDatabase.GetStudentInfosAsync(ActiveUserInfo)) as List<Student>)?[0];
+        }
+    }
 
     private async Task<SignInData> HandleSignIn(Task<Firebase.Auth.FirebaseUser> task)
     {
@@ -279,15 +291,7 @@ public class FirebaseAuthManager : MonoBehaviour
             data.IsSuccessful = true;
 
             //ActiveUserInfo = await UserDatabase.GetUserInfoAsync(task.Result.UserId);
-            ActiveUserInfo = await UserDatabase.GetUserInfoByEmailAsync(task.Result.Email);
-            if (IsInstructor())
-            {
-                userTypeInfo = await InstructorDatabase.GetInstructorInfoAsync(ActiveUserInfo);
-            }
-            else if (ActiveUserInfo.UserType == UserType.Student)
-            {
-                userTypeInfo = ((await StudentDatabase.GetStudentInfosAsync(ActiveUserInfo)) as List<Student>)?[0];
-            }
+            await UpdateUserData(task.Result.Email);
         }
         catch (System.AggregateException e)
         {
@@ -326,10 +330,11 @@ public class FirebaseAuthManager : MonoBehaviour
         auth.CurrentUser.ReloadAsync().ContinueWith(HandleReloadUser);
     }
 
-    private void HandleReloadUser(Task task)
+    private async void HandleReloadUser(Task task)
     {
         if (LogTaskCompletion(task, "Reload"))
         {
+            await UpdateUserData(auth.CurrentUser.Email);
             DisplayDetailedUserInfo(auth.CurrentUser);
         }
     }
@@ -354,6 +359,8 @@ public class FirebaseAuthManager : MonoBehaviour
         {
             Debug.Log("Token = " + task.Result);
         }
+
+
     }
 
     public Firebase.Auth.FirebaseUser GetUserInfo()
