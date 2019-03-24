@@ -79,7 +79,6 @@ public class SimulationManager : MonoBehaviour
             if (GameStateManagerScript.Instance.HasSavedState())
             {
                 LoadActivityFromState();
-                Debug.Log("Has save state");
             }
         }
 
@@ -126,10 +125,20 @@ public class SimulationManager : MonoBehaviour
 
     private async void LoadActivityFromState()
     {
+        Debug.Log("Start LoadActivityFromState");
         var data = await GameStateManagerScript.Instance.LoadState();
-        if (data.activityId == GameManager.Instance.CurrentLabActivity)
+        if (data != null)
         {
+            if (data.activityId == GameManager.Instance.CurrentLabActivity)
+            {
+                GameTimerScript.Instance.SetTime(data.timer);
 
+                foreach (GameStateTableObject elem in data.elements)
+                {
+                    elem.mixtureItem.icon = Resources.Load<Sprite>(elem.iconPath);
+                    TableDropZone.Instance.AddObject(elem.mixtureItem,new Vector3(elem.x, elem.y), Quaternion.identity);
+                }
+            }
         }
     }
 

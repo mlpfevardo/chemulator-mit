@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
@@ -19,6 +20,7 @@ public class GameStateTableObject
 {
     public SimulationMixableBehavior mixtureItem;
     public Type type;
+    public string iconPath;
     public float x;
     public float y;
 }
@@ -37,6 +39,8 @@ public class GameStateManagerScript : MonoBehaviour
 
     public async Task SaveState()
     {
+        RemoveSaveData();
+
         BinaryFormatter binaryFormatter = new BinaryFormatter();
 
         var data = new GameStateData
@@ -49,12 +53,14 @@ public class GameStateManagerScript : MonoBehaviour
         foreach(Transform child in dropZoneContainer.transform)
         {
             var element = child.GetComponent<DropZoneObjectHandler>();
+            
             data.elements.Add(new GameStateTableObject
             {
                 type = element.MixtureItem.GetType(),
                 x = child.position.x,
                 y = child.position.y,
                 mixtureItem = element.MixtureItem,
+                iconPath = System.IO.Path.ChangeExtension(AssetDatabase.GetAssetPath(element.MixtureItem.icon).Replace("Assets/Resources/", ""), null),
             });
         }
 

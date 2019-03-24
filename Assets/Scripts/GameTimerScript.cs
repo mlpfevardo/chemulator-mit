@@ -37,6 +37,11 @@ public class GameTimerScript : MonoBehaviour {
         return gameTimer;
     }
 
+    public void SetTime(float f)
+    {
+        gameTimer = f;
+    }
+
     public float GetMinutes()
     {
         return (gameTimer / 60);

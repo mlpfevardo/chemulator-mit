@@ -90,6 +90,26 @@ public class SimulationMixtureManager : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public Dictionary<string, HashSet<SimulationMixableBehavior>> GetMixturePool()
+    {
+        return mixturePool;
+    }
+
+    public Dictionary<SimulationMixableBehavior, List<SimulationMixableBehavior>> GetSavedMixtures()
+    {
+        return savedMixtures;
+    }
+
+    public void SetMixturePool(Dictionary<string, HashSet<SimulationMixableBehavior>> newpool)
+    {
+        mixturePool = newpool;
+    }
+
+    public void SetSavedMixtures(Dictionary<SimulationMixableBehavior, List<SimulationMixableBehavior>> newmixtures)
+    {
+        savedMixtures = newmixtures;
+    }
+
     public bool IsMixable(SimulationMixableBehavior targetMixture, SimulationMixableBehavior mixable)
     {
         return mixturePool.ContainsKey(targetMixture.GetItemId()) && mixturePool[targetMixture.GetItemId()].FirstOrDefault(m => m.GetItemId() == mixable.GetItemId()) != null; //mixturePool[targetMixture.GetItemId()].mixables.FirstOrDefault(a => a.GetItemId() == mixable.GetItemId()) != null;
