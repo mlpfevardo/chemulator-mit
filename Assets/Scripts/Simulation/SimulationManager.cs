@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SimulationManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class SimulationManager : MonoBehaviour
     public PauseManager pauseMenuObject;
     public GameObject equipmentsScrollList;
     public GameObject materialsScrollList;
+    public List<GameObject> allowedDropRegions;
     private SimulationActivityBehavior activeActivity = null;
 
     private void Awake()
@@ -39,6 +41,11 @@ public class SimulationManager : MonoBehaviour
         var x = ModalPanel.Instance;
         var y = PartSelectorPanel.Instance;
         instance.Setup();
+    }
+
+    public bool IsAllowedToDrop(GameObject obj)
+    {
+        return allowedDropRegions.Contains(obj);
     }
 
     public SimulationActivityBehavior ActiveActivity
@@ -132,14 +139,18 @@ public class SimulationManager : MonoBehaviour
             if (data.activityId == GameManager.Instance.CurrentLabActivity)
             {
                 GameTimerScript.Instance.SetTime(data.timer);
+                SimulationMixtureManager.instance.SetMixturePool(data.mixturePool);
+                SimulationMixtureManager.instance.SetSavedMixtures(data.savedMixtures);
 
                 foreach (GameStateTableObject elem in data.elements)
                 {
                     elem.mixtureItem.icon = Resources.Load<Sprite>(elem.iconPath);
-                    TableDropZone.Instance.AddObject(elem.mixtureItem,new Vector3(elem.x, elem.y), Quaternion.identity);
+                    TableDropZone.Instance.AddObject(elem.mixtureItem, new Vector3(elem.x, elem.y, 0), Quaternion.identity);
                 }
             }
         }
+
+        Canvas.ForceUpdateCanvases();
     }
 
     private void Update()

@@ -37,23 +37,11 @@ public abstract class DraggableObjectBehavior : MonoBehaviour, IDragHandler, IBe
 
     private void Awake()
     {
-        //Debug.Log("Running");
-        //if (objectPool == null)
-        //{
-        objectPool = EZObjectPool.CreateObjectPool(dragIndicatorPrefab, "DraggableSpritePools", 5, true, true, true);
-        //}
-        //objectPool.InstantiatePool();
+        if (objectPool == null)
+        {
+            objectPool = EZObjectPool.CreateObjectPool(dragIndicatorPrefab, "DraggableSpritePools", 5, true, true, true);
+        }
     }
-
-    //private void OnDestroy()
-    //{
-    //    Debug.Log("destroyed " + name);
-    //    //if (objectPool != null)
-    //    //{
-    //    //    //objectPool.DeletePool(true);
-    //    //    objectPool = null;
-    //    //}
-    //}
 
     #region Interface Implementations
     public virtual void OnBeginDrag(PointerEventData eventData)
@@ -76,6 +64,11 @@ public abstract class DraggableObjectBehavior : MonoBehaviour, IDragHandler, IBe
             {
                 Debug.LogError(dragObject.name + " is not a valid drag indicator.");
                 return;
+            }
+
+            if (this.GetType() == typeof(SimulationScrollButton))
+            {
+                dragIndicator.ChangeGlowColor(ObjectGlowState.Invalid);
             }
 
             SpriteRenderer image = dragIndicator.GetComponentInChildren<SpriteRenderer>();

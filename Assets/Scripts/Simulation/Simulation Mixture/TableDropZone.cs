@@ -39,7 +39,7 @@ public class TableDropZone : MonoBehaviour, IDropHandler {
 
     public void AddObject(SimulationMixableBehavior element, Vector3 position, Quaternion rotation)
     {
-        Debug.Log($"Start TableDropZone_AddObject, element={element.GetItemId()} x={position.x} y={position.y}");
+        Debug.Log($"Start TableDropZone_AddObject, element={element.itemName} x={position.x} y={position.y}");
         GameObject item;
 
         if (objectPool.TryGetNextObject(position, Quaternion.identity, out item))
@@ -47,6 +47,7 @@ public class TableDropZone : MonoBehaviour, IDropHandler {
             item.GetComponent<DropZoneObjectHandler>().Setup(element);
             item.transform.SetParent(this.transform);
             item.transform.localScale = new Vector3(element.Scale, element.Scale);
+            item.transform.position = position;
         }
     }
 

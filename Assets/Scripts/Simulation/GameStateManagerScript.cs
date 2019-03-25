@@ -11,6 +11,8 @@ using UnityEngine;
 public class GameStateData
 {
     public List<GameStateTableObject> elements;
+    public Dictionary<string, HashSet<SimulationMixableBehavior>> mixturePool;
+    public Dictionary<SimulationMixableBehavior, List<SimulationMixableBehavior>> savedMixtures;
     public float timer;
     public int activityId;
 }
@@ -39,6 +41,7 @@ public class GameStateManagerScript : MonoBehaviour
 
     public async Task SaveState()
     {
+        Debug.Log("Start SaveState");
         RemoveSaveData();
 
         BinaryFormatter binaryFormatter = new BinaryFormatter();
@@ -48,20 +51,31 @@ public class GameStateManagerScript : MonoBehaviour
             elements = new List<GameStateTableObject>(),
             timer = GameTimerScript.Instance.GetTime(),
             activityId = GameManager.Instance.CurrentLabActivity,
+            mixturePool = SimulationMixtureManager.instance.GetMixturePool(),
+            savedMixtures = SimulationMixtureManager.instance.GetSavedMixtures(),
         };
 
         foreach(Transform child in dropZoneContainer.transform)
         {
+            if(!child.gameObject.activeSelf)
+            {
+                continue;
+            }
+
             var element = child.GetComponent<DropZoneObjectHandler>();
-            
-            data.elements.Add(new GameStateTableObject
+            var obj = new GameStateTableObject
             {
                 type = element.MixtureItem.GetType(),
                 x = child.position.x,
                 y = child.position.y,
                 mixtureItem = element.MixtureItem,
                 iconPath = System.IO.Path.ChangeExtension(AssetDatabase.GetAssetPath(element.MixtureItem.icon).Replace("Assets/Resources/", ""), null),
-            });
+            };
+
+
+            data.elements.Add(obj);
+
+            Debug.Log($"Save element, name={obj.mixtureItem.itemName} x={obj.x} y={obj.y}");
         }
 
         string path = Path.Combine(Application.persistentDataPath, data.activityId + fileName);

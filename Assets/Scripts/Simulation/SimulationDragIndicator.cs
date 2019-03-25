@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using SpriteGlow;
 using System;
 
@@ -35,6 +36,15 @@ public class SimulationDragIndicator : MonoBehaviour, IGlowingObject
     #region Interface Implementations
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (!SimulationManager.instance.IsAllowedToDrop(collision.collider.gameObject))
+        {
+            ChangeGlowColor(ObjectGlowState.Invalid);
+        }
+        else
+        {
+            ChangeGlowColor();
+        }
+
         DropZoneObjectHandler dropZoneObject = collision.collider.GetComponent<DropZoneObjectHandler>();
 
         if (dropZoneObject != null && collision.gameObject != this.parentObject)
@@ -55,6 +65,15 @@ public class SimulationDragIndicator : MonoBehaviour, IGlowingObject
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        if (SimulationManager.instance.IsAllowedToDrop(collision.collider.gameObject))
+        {
+            ChangeGlowColor(ObjectGlowState.Invalid);
+        }
+        else
+        {
+            ChangeGlowColor();
+        }
+
         DropZoneObjectHandler dropZoneObject = collision.collider.GetComponent<DropZoneObjectHandler>();
 
         if (dropZoneObject != null && collision.gameObject != this.parentObject)
