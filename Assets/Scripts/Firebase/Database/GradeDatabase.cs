@@ -12,9 +12,9 @@ namespace Assets.Scripts.Firebase.Database
     {
         public const string DB_NAME = "Grades";
 
-        public static async Task<StudentGrade> GetGradeInfoAsync(Student student, string id)
+        public static async Task<StudentGrade> GetGradeInfoAsync(Student student, Exercise exercise)
         {
-            if (student == null || string.IsNullOrEmpty(id))
+            if (student == null || exercise == null)
             {
                 return null;
             }
@@ -32,7 +32,7 @@ namespace Assets.Scripts.Firebase.Database
                     {
                         var info = d.Value as IEnumerable<KeyValuePair<string, object>>;
 
-                        if (info.Where(m => m.Key == "experimentid" && m.Value.ToString() == id) != null)
+                        if (info.Where(m => m.Key == "exerciseid" && m.Value.ToString() == exercise.ID) != null)
                         {
                             return JsonConvert.DeserializeObject<StudentGrade>(JsonConvert.SerializeObject(d.Value));
                         }

@@ -32,7 +32,8 @@ public class ExerciseInfoPanelScript : MonoBehaviour
         txtTimeLimit.text = $"Time Limit: {exercise.TimeLimit} minute(s)";
         txtName.text = exercise.Name;
 
-        btnDelete.gameObject.SetActive(FirebaseAuthManager.instance.IsInstructor());
+        //btnDelete.gameObject.SetActive(FirebaseAuthManager.instance.IsInstructor());
+        btnDelete.gameObject.SetActive(false);
         btnEdit.gameObject.SetActive(FirebaseAuthManager.instance.IsInstructor());
     }
 

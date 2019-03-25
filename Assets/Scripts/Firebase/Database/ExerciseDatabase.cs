@@ -32,5 +32,25 @@ namespace Assets.Scripts.Firebase.Database
 
             return dbRef.Child(exercise.ID).RemoveValueAsync();
         }
+
+        public static async Task BuildDefaultExercise(LabClass labClass)
+        {
+            var dbRef = FirebaseDatabase.DefaultInstance.GetReference(DB_NAME);
+
+            var exps = await ExperimentDatabase.GetExperimentsAsync();
+
+            foreach(var exp in exps)
+            {
+                var exer = new Exercise
+                {
+                    ClassID = labClass.ID,
+                    MaxAttempts = 1,
+                    TimeLimit = 60,
+                    Name = exp.Name,
+                };
+
+                await RegisterExercise(exer);
+            }
+        }
     }
 }

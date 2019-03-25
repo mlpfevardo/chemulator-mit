@@ -20,8 +20,8 @@ public class CreateExercisePanelScript : MonoBehaviour, ILabClassInfoPanel
     public Text txtMessage;
 
     public GameObject firstPagePanel;
-    public GameObject secondPagePanel;
-    public GameObject thirdPagePanel;
+    //public GameObject secondPagePanel;
+    //public GameObject thirdPagePanel;
 
     private LabClass activeLab;
     private int attempts;
@@ -34,8 +34,8 @@ public class CreateExercisePanelScript : MonoBehaviour, ILabClassInfoPanel
         Debug.Log("Start CreateExercisePanel, lab=" + lab.ID);
 
         firstPagePanel.SetActive(true);
-        secondPagePanel.SetActive(false);
-        thirdPagePanel.SetActive(false);
+        //secondPagePanel.SetActive(false);
+        //thirdPagePanel.SetActive(false);
 
         inputName.text = string.Empty;
         inputAttempts.text = string.Empty;
@@ -58,13 +58,13 @@ public class CreateExercisePanelScript : MonoBehaviour, ILabClassInfoPanel
         activeExercise = exercise;
 
         firstPagePanel.SetActive(true);
-        secondPagePanel.SetActive(false);
-        thirdPagePanel.SetActive(false);
+        //secondPagePanel.SetActive(false);
+        //thirdPagePanel.SetActive(false);
 
         inputName.text = exercise.Name;
         inputAttempts.text = exercise.MaxAttempts.ToString();
         inputTimeLimit.text = exercise.TimeLimit.ToString();
-        inputInstructions.text = exercise.Instructions;
+        //inputInstructions.text = exercise.Instructions;
 
         textLabName.SetText(exercise.Name);
         textTitle.SetText("Edit Exercise");
@@ -80,19 +80,19 @@ public class CreateExercisePanelScript : MonoBehaviour, ILabClassInfoPanel
         ModalPanel.Instance.ShowModalYesNo("Confirm", "Changes will not be saved. Are you sure you want to cancel?", GoBack, () => { });
     }
 
-    public void OnBackFirstPage()
-    {
-        txtMessage.text = string.Empty;
-        secondPagePanel.SetActive(false);
-        firstPagePanel.SetActive(true);
-    }
+    //public void OnBackFirstPage()
+    //{
+    //    txtMessage.text = string.Empty;
+    //    secondPagePanel.SetActive(false);
+    //    firstPagePanel.SetActive(true);
+    //}
 
-    public void OnBackSecondPage()
-    {
-        txtMessage.text = string.Empty;
-        thirdPagePanel.SetActive(false);
-        secondPagePanel.SetActive(true);
-    }
+    //public void OnBackSecondPage()
+    //{
+    //    txtMessage.text = string.Empty;
+    //    thirdPagePanel.SetActive(false);
+    //    secondPagePanel.SetActive(true);
+    //}
 
     public void OnGoSecondPage()
     {
@@ -117,23 +117,24 @@ public class CreateExercisePanelScript : MonoBehaviour, ILabClassInfoPanel
             return;
         }
 
-        firstPagePanel.SetActive(false);
-        secondPagePanel.SetActive(true);
+        //firstPagePanel.SetActive(false);
+        //secondPagePanel.SetActive(true);
+        SubmitForm();
     }
 
-    public void OnGoThirdPage()
-    {
-        txtMessage.text = string.Empty;
-        if (string.IsNullOrEmpty(inputInstructions.text))
-        {
-            txtMessage.text = "Instructions cannot be empty";
-            return;
-        }
+    //public void OnGoThirdPage()
+    //{
+    //    txtMessage.text = string.Empty;
+    //    if (string.IsNullOrEmpty(inputInstructions.text))
+    //    {
+    //        txtMessage.text = "Instructions cannot be empty";
+    //        return;
+    //    }
 
-        secondPagePanel.SetActive(false);
-        thirdPagePanel.SetActive(true);
-        SetInteractability(true);
-    }
+    //    secondPagePanel.SetActive(false);
+    //    thirdPagePanel.SetActive(true);
+    //    SetInteractability(true);
+    //}
 
     public async void SubmitForm()
     {
@@ -149,7 +150,7 @@ public class CreateExercisePanelScript : MonoBehaviour, ILabClassInfoPanel
                     MaxAttempts = attempts,
                     TimeLimit = timelimit,
                     Name = inputName.text,
-                    Instructions = inputInstructions.text,
+                    //Instructions = inputInstructions.text,
                 });
 
                 ModalPanel.Instance.ShowModalOK("Exercise Created", "The '" + inputName.text + "' exercise has been successfully created", GoBack);
@@ -159,7 +160,7 @@ public class CreateExercisePanelScript : MonoBehaviour, ILabClassInfoPanel
                 activeExercise.MaxAttempts = attempts;
                 activeExercise.TimeLimit = timelimit;
                 activeExercise.Name = inputName.text;
-                activeExercise.Instructions = inputInstructions.text;
+                //activeExercise.Instructions = inputInstructions.text;
 
                 await ExerciseDatabase.UpdateExercise(activeExercise);
 

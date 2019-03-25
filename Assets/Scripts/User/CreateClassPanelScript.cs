@@ -89,6 +89,8 @@ public class CreateClassPanelScript : MonoBehaviour
             };
 
             await ClassDatabase.RegisterLabClassAsync(lab);
+            textMessage.text = "Building exercises....";
+            await ExerciseDatabase.BuildDefaultExercise(lab);
 
             return key;
         }
