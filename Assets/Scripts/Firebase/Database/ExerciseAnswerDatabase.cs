@@ -32,9 +32,11 @@ namespace Assets.Scripts.Firebase.Database
                     {
                         var info = d.Value as IEnumerable<KeyValuePair<string, object>>;
 
-                        if (info.Where(m => m.Key == "exerciseid" && m.Value.ToString() == exercise.ID) != null)
+                        if (info.Where(m => m.Key == "exerciseid" && m.Value.ToString() == exercise.ID).Count() > 0)
                         {
-                            return JsonConvert.DeserializeObject<ExerciseAnswer>(JsonConvert.SerializeObject(d.Value));
+                            var result = JsonConvert.DeserializeObject<ExerciseAnswer>(JsonConvert.SerializeObject(d.Value));
+                            result.ID = d.Key;
+                            return result;
                         }
                     }
                 }

@@ -30,7 +30,7 @@ public class ExercisesListPanelScript : MonoBehaviour, ILabClassInfoPanel
 
         Debug.Log("Loading ExercisesListPanel, lab=" + lab.ID);
 
-        btnCreateExercise.gameObject.SetActive(FirebaseAuthManager.instance.IsInstructor());
+        //btnCreateExercise.gameObject.SetActive(FirebaseAuthManager.instance.IsInstructor());
 
         exercisesList.transform.DetachChildren();
 

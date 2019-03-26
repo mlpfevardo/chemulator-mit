@@ -14,25 +14,22 @@ public class GradeInfoItemScript : MonoBehaviour
 
     private LabClass currentLab;
     private Student currentStudent;
+    private StudentGrade currentGrade;
+    private Exercise currentExercise;
 
-    public async Task LoadAsync(Student student, LabClass labClass, Exercise exercise)
+    public async Task<double> LoadAsync(Student student, LabClass labClass, Exercise exercise)
     {
         Debug.Log($"Start GradeInfoItemScript, student={student?.ID} exercise={exercise?.ID}");
 
+        currentExercise = exercise;
         txtTitle.SetText(exercise.Name);
-        
-        
-
+        txtGrade.SetText("Grade: 0");
         Setup(student, labClass);
-    }
 
-    public async Task LoadAsync(Student student, LabClass labClass, Experiment experiment)
-    {
-        Debug.Log($"Start GradeInfoItemScript, student={student?.ID} experiment={experiment}");
+        currentGrade = await GradeDatabase.GetGradeInfoAsync(student, exercise);
+        txtGrade.SetText("Grade: " + currentGrade.Score.ToString());
 
-        txtTitle.SetText(experiment.Name);
-
-        Setup(student, labClass);
+        return currentGrade.Score;
     }
 
     private void Setup(Student student, LabClass labClass)
@@ -43,6 +40,12 @@ public class GradeInfoItemScript : MonoBehaviour
         if (FirebaseAuthManager.instance.IsInstructor())
         {
             btnEdit.gameObject.SetActive(FirebaseAuthManager.instance.GetInstructorInfo()?.ID == labClass.InstructorID);
+
+            btnEdit.onClick.RemoveAllListeners();
+            btnEdit.onClick.AddListener(() =>
+            {
+                GradesPanelScript.Instance.LoadEditGrade(currentStudent, currentLab, currentExercise, currentGrade);
+            });
         }
         else
         {

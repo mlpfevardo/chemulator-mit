@@ -100,7 +100,7 @@ namespace Assets.Scripts.Firebase.Database
                     foreach (KeyValuePair<string, object> d in data)
                     {
                         var info = d.Value as IEnumerable<KeyValuePair<string, object>>;
-                        if (info.Where(m => m.Key == "classkey" && m.Value.ToString() == lab.ID) != null)
+                        if (info.Where(m => m.Key == "classkey" && m.Value.ToString() == lab.ID).Count() > 0)
                         {
                             return true;
                         }

@@ -14,6 +14,7 @@ public class GradeInfoPanelScript : MonoBehaviour
     public TextMeshProUGUI txtTitle;
 
     private static EZObjectPool objectPool = null;
+    private LabClass currentLab;
 
     private void Awake()
     {
@@ -29,23 +30,12 @@ public class GradeInfoPanelScript : MonoBehaviour
         Debug.Log($"Start GradeInfoPanelScript, student={student.ID} labClass={labClass?.ID}");
         txtTitle.SetText("View Grade: " + student.UserInfo.ToString());
 
+        currentLab = labClass;
+
         gradeInfoList.transform.DetachChildren();
 
         try
         {
-            var exps = await ExperimentDatabase.GetExperimentsAsync();
-
-            foreach(var exp in exps)
-            {
-                if (objectPool.TryGetNextObject(Vector3.zero, Quaternion.identity, out item))
-                {
-                    item.transform.SetParent(gradeInfoList.transform);
-                    item.transform.localScale = new Vector3(1f, 1f);
-
-                    item.GetComponent<GradeInfoItemScript>().LoadAsync(student, labClass, exp);
-                }
-            }
-
             var exercises = await ClassDatabase.GetLabClassExercisesAsync(labClass);
 
             foreach (var exer in exercises)
@@ -63,5 +53,10 @@ public class GradeInfoPanelScript : MonoBehaviour
         {
             Debug.LogError(FirebaseFunctions.GetFirebaseErrorMessage(e));
         }
+    }
+
+    public void OnBack()
+    {
+        GradesPanelScript.Instance.LoadAsync(currentLab);
     }
 }

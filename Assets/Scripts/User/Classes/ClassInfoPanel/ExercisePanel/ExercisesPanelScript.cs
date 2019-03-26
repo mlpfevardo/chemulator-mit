@@ -28,7 +28,7 @@ public class ExercisesPanelScript : MonoBehaviour, ILabClassInfoPanel
         activeLab = lab;
 
         exerciseInfoPanel.SetActive(false);
-        //createExercisePanel.SetActive(false);
+        createExercisePanel.SetActive(false);
         exerciseListPanel.SetActive(true);
 
         await exerciseListPanel.GetComponent<ExercisesListPanelScript>().LoadAsync(lab);
@@ -36,7 +36,7 @@ public class ExercisesPanelScript : MonoBehaviour, ILabClassInfoPanel
 
     public async void LoadExerciseInfo(Exercise exercise)
     {
-        //createExercisePanel.SetActive(false);
+        createExercisePanel.SetActive(false);
         exerciseListPanel.SetActive(false);
         exerciseInfoPanel.SetActive(true);
 

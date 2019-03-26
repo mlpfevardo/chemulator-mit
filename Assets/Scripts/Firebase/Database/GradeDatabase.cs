@@ -12,6 +12,31 @@ namespace Assets.Scripts.Firebase.Database
     {
         public const string DB_NAME = "Grades";
 
+        public static async Task<string> RegisterGradeInfoAsync(Student student, Exercise exercise, double score)
+        {
+            var dbRef = FirebaseDatabase.DefaultInstance.GetReference(DB_NAME);
+
+            string key = dbRef.Push().Key;
+
+            var data = new StudentGrade
+            {
+                ExerciseID = exercise.ID,
+                Score = score,
+                StudentID = student.ID,
+            };
+
+            await dbRef.Child(key).SetRawJsonValueAsync(FirebaseJsonSerializer.SerializeObject(data));
+
+            return key;
+        }
+
+        public static Task UpdateGradeAsync(StudentGrade studentGrade)
+        {
+            var dbRef = FirebaseDatabase.DefaultInstance.GetReference(DB_NAME);
+
+            return dbRef.Child(studentGrade.ID).SetRawJsonValueAsync(FirebaseJsonSerializer.SerializeObject(studentGrade));
+        }
+
         public static async Task<StudentGrade> GetGradeInfoAsync(Student student, Exercise exercise)
         {
             if (student == null || exercise == null)
@@ -32,15 +57,23 @@ namespace Assets.Scripts.Firebase.Database
                     {
                         var info = d.Value as IEnumerable<KeyValuePair<string, object>>;
 
-                        if (info.Where(m => m.Key == "exerciseid" && m.Value.ToString() == exercise.ID) != null)
+                        if (info.Where(m => m.Key == "exerciseid" && m.Value.ToString() == exercise.ID).Count() > 0)
                         {
-                            return JsonConvert.DeserializeObject<StudentGrade>(JsonConvert.SerializeObject(d.Value));
+                            var result = JsonConvert.DeserializeObject<StudentGrade>(JsonConvert.SerializeObject(d.Value));
+                            result.ID = d.Key;
+                            return result;
                         }
                     }
                 }
             }
 
-            return null;
+            string key = await RegisterGradeInfoAsync(student, exercise, 0);
+            if (string.IsNullOrEmpty(key))
+            {
+                return null;
+            }
+
+            return await GetGradeInfoAsync(student, exercise);
         }
     }
 }

@@ -12,6 +12,7 @@ public class GradesPanelScript : MonoBehaviour, ILabClassInfoPanel
     public static GradesPanelScript Instance { get; private set; }
     public GameObject gradeListPanel;
     public GameObject gradeInfoPanel;
+    public GameObject editGradePanel;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class GradesPanelScript : MonoBehaviour, ILabClassInfoPanel
     {
         Debug.Log("Start GradesPanelScript, lab=" + lab.ID);
         gradeInfoPanel.SetActive(false);
+        editGradePanel.SetActive(false);
         gradeListPanel.SetActive(true);
 
         if (FirebaseAuthManager.instance.IsInstructor())
@@ -40,8 +42,18 @@ public class GradesPanelScript : MonoBehaviour, ILabClassInfoPanel
     public async Task LoadGradeInfo(Student student, LabClass labClass)
     {
         gradeListPanel.SetActive(false);
+        editGradePanel.SetActive(false);
         gradeInfoPanel.SetActive(true);
 
         await gradeInfoPanel.GetComponent<GradeInfoPanelScript>().LoadAsync(student, labClass);
+    }
+
+    public async Task LoadEditGrade(Student student, LabClass lab, Exercise exercise, StudentGrade studentGrade)
+    {
+        gradeListPanel.SetActive(false);
+        editGradePanel.SetActive(true);
+        gradeInfoPanel.SetActive(false);
+
+        await editGradePanel.GetComponent<EditGradePanelScript>().LoadAsync(student, lab, exercise, studentGrade);
     }
 }
