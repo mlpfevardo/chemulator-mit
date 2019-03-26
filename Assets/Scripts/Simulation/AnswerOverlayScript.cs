@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AnswerOverlayScript : MonoBehaviour
 {
     public List<GameObject> exerPanels;
+    public TextMeshProUGUI txtTitle;
 
     private GameObject activePanel = null;
 
@@ -28,6 +31,22 @@ public class AnswerOverlayScript : MonoBehaviour
         {
             Debug.LogError("Failed to load answer overlay. No panels were set");
         }
+    }
+
+    public void OnBack()
+    {
+        this.gameObject.SetActive(false);
+        SetActiveState(false);
+    }
+
+    public void OnSubmit()
+    {
+
+    }
+
+    public void OnSave()
+    {
+
     }
 
     private void SetActiveState(bool active)
