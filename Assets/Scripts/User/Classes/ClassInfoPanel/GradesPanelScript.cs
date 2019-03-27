@@ -35,25 +35,25 @@ public class GradesPanelScript : MonoBehaviour, ILabClassInfoPanel
         else
         {
             // load grades of current student
-            await LoadGradeInfo(FirebaseAuthManager.instance.GetStudentInfo(), lab);
+            await LoadGradeInfo(FirebaseAuthManager.instance.ActiveUserInfo, lab);
         }
     }
 
-    public async Task LoadGradeInfo(Student student, LabClass labClass)
+    public async Task LoadGradeInfo(UserInfo user, LabClass labClass)
     {
         gradeListPanel.SetActive(false);
         editGradePanel.SetActive(false);
         gradeInfoPanel.SetActive(true);
 
-        await gradeInfoPanel.GetComponent<GradeInfoPanelScript>().LoadAsync(student, labClass);
+        await gradeInfoPanel.GetComponent<GradeInfoPanelScript>().LoadAsync(user, labClass);
     }
 
-    public async Task LoadEditGrade(Student student, LabClass lab, Exercise exercise, StudentGrade studentGrade)
+    public async Task LoadEditGrade(UserInfo user, LabClass lab, Exercise exercise, StudentGrade studentGrade)
     {
         gradeListPanel.SetActive(false);
         editGradePanel.SetActive(true);
         gradeInfoPanel.SetActive(false);
 
-        await editGradePanel.GetComponent<EditGradePanelScript>().LoadAsync(student, lab, exercise, studentGrade);
+        await editGradePanel.GetComponent<EditGradePanelScript>().LoadAsync(user, lab, exercise, studentGrade);
     }
 }

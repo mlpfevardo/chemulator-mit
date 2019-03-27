@@ -41,7 +41,7 @@ public class GradeListPanelScript : MonoBehaviour, ILabClassInfoPanel
                     item.transform.SetParent(studentList.transform);
                     item.transform.localScale = new Vector3(1f, 1f);
                     item.GetComponentInChildren<TextMeshProUGUI>().SetText(student.ToString());
-                    item.GetComponent<ViewStudentGradeScript>().LoadAsync(student, lab);
+                    item.GetComponent<ViewStudentGradeScript>().LoadAsync(student.UserInfo, lab);
                 }
             }
         }

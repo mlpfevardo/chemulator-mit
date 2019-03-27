@@ -13,6 +13,13 @@ public class ClassInfoPanelScript : MonoBehaviour, ILabClassInfoPanel
 
     private LabClass labClass;
 
+    public static ClassInfoPanelScript Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     public async Task LoadAsync(LabClass lab)
     {
         labClass = lab;

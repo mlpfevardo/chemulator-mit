@@ -12,7 +12,7 @@ namespace Assets.Scripts.Firebase.Database
     {
         public const string DB_NAME = "Grades";
 
-        public static async Task<string> RegisterGradeInfoAsync(Student student, Exercise exercise, double score)
+        public static async Task<string> RegisterGradeInfoAsync(UserInfo user, Exercise exercise, double score)
         {
             var dbRef = FirebaseDatabase.DefaultInstance.GetReference(DB_NAME);
 
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Firebase.Database
             {
                 ExerciseID = exercise.ID,
                 Score = score,
-                StudentID = student.ID,
+                UserID = user.ID,
             };
 
             await dbRef.Child(key).SetRawJsonValueAsync(FirebaseJsonSerializer.SerializeObject(data));
@@ -37,15 +37,15 @@ namespace Assets.Scripts.Firebase.Database
             return dbRef.Child(studentGrade.ID).SetRawJsonValueAsync(FirebaseJsonSerializer.SerializeObject(studentGrade));
         }
 
-        public static async Task<StudentGrade> GetGradeInfoAsync(Student student, Exercise exercise)
+        public static async Task<StudentGrade> GetGradeInfoAsync(UserInfo user, Exercise exercise)
         {
-            if (student == null || exercise == null)
+            if (user == null || exercise == null)
             {
                 return null;
             }
 
             var dbRef = FirebaseDatabase.DefaultInstance.GetReference(DB_NAME);
-            DataSnapshot exerData = await dbRef.OrderByChild("studentid").EqualTo(student.ID).GetValueAsync();
+            DataSnapshot exerData = await dbRef.OrderByChild("userid").EqualTo(user.ID).GetValueAsync();
 
             if (exerData != null)
             {
@@ -67,13 +67,13 @@ namespace Assets.Scripts.Firebase.Database
                 }
             }
 
-            string key = await RegisterGradeInfoAsync(student, exercise, 0);
+            string key = await RegisterGradeInfoAsync(user, exercise, 0);
             if (string.IsNullOrEmpty(key))
             {
                 return null;
             }
 
-            return await GetGradeInfoAsync(student, exercise);
+            return await GetGradeInfoAsync(user, exercise);
         }
     }
 }

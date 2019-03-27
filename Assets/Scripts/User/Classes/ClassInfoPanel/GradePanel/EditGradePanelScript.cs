@@ -15,19 +15,19 @@ public class EditGradePanelScript : MonoBehaviour
     public Button btnBack;
     public Button btnViewAnswers;
 
-    private Student currentStudent;
+    private UserInfo currentUser;
     private StudentGrade currentStudentGrade;
     private Exercise currentExercise;
     private LabClass targetClass;
 
-    public async Task LoadAsync(Student student, LabClass lab, Exercise exercise, StudentGrade studentGrade)
+    public async Task LoadAsync(UserInfo user, LabClass lab, Exercise exercise, StudentGrade studentGrade)
     {
-        currentStudent = student;
+        currentUser = user;
         currentExercise = exercise;
         currentStudentGrade = studentGrade;
         targetClass = lab;
         inputGrade.text = studentGrade.Score.ToString();
-        studentText.SetText("Grade of " + student.UserInfo.ToString());
+        studentText.SetText("Grade of " + user.ToString());
     }
 
     public async void OnSubmit()
@@ -63,14 +63,15 @@ public class EditGradePanelScript : MonoBehaviour
         }
     }
 
-    public void OnViewAnswers()
+    public async void OnViewAnswers()
     {
-
+        var answer = await ExerciseAnswerDatabase.GetExerciseAnswer(currentUser, currentExercise);
+        AnswerOverlay.Instance.LoadAnswers(currentExercise, answer);
     }
 
     public void OnBack()
     {
-        GradesPanelScript.Instance.LoadGradeInfo(currentStudent, targetClass);
+        GradesPanelScript.Instance.LoadGradeInfo(currentUser, targetClass);
     }
 
     private void SetInteractability(bool interactable)

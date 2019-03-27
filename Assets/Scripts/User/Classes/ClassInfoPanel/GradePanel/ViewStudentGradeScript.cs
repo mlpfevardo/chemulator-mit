@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class ViewStudentGradeScript : MonoBehaviour
 {
-    private Student student;
+    private UserInfo user;
     private LabClass lab;
 
     // Load Instructor View
-    public async Task LoadAsync(Student student, LabClass labClass)
+    public async Task LoadAsync(UserInfo user, LabClass labClass)
     {
-        Debug.Log($"Start ViewStudentGradeScript, student={student.ID} labClass={labClass.ID}");
+        Debug.Log($"Start ViewStudentGradeScript, student={user.ID} labClass={labClass.ID}");
 
-        this.student = student;
+        this.user = user;
         this.lab = labClass;
     }
 
@@ -27,6 +27,7 @@ public class ViewStudentGradeScript : MonoBehaviour
 
     public void OnClick()
     {
-        GradesPanelScript.Instance.LoadGradeInfo(student, lab);
+        GradesPanelScript.Instance.LoadGradeInfo(user, lab);
+        //ClassInfoPanelScript.Instance.OnClickGrades();
     }
 }

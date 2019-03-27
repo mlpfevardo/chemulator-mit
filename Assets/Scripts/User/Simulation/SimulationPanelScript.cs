@@ -37,9 +37,9 @@ public class SimulationPanelScript : MonoBehaviour, ILoadableClass
         classListPanel.SetActive(true);
 
         GameObject obj;
-        var classes = await UserDatabase.GetLabClasses(FirebaseAuthManager.instance.ActiveUserInfo);
-
         classListContent.transform.DetachChildren();
+
+        var classes = await UserDatabase.GetLabClasses(FirebaseAuthManager.instance.ActiveUserInfo);
 
         foreach (var lab in classes)
         {
@@ -48,7 +48,7 @@ public class SimulationPanelScript : MonoBehaviour, ILoadableClass
                 obj.transform.SetParent(classListContent.transform);
                 obj.transform.localScale = new Vector3(1f, 1f);
 
-                obj.GetComponent<ViewClassesButtonScript>().LabClass = lab;
+                obj.GetComponent<ViewSimulClassButtonScript>().LabClass = lab;
                 obj.GetComponentInChildren<TextMeshProUGUI>().SetText(lab.Name);
             }
         }

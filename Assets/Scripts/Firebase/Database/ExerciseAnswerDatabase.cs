@@ -12,15 +12,25 @@ namespace Assets.Scripts.Firebase.Database
     {
         public const string DB_NAME = "ExerciseAnswers";
 
-        public static async Task<ExerciseAnswer> GetExerciseAnswer(Student student, Exercise exercise)
+        public static async Task<string> UpdateExerciseAnswer(ExerciseAnswer answer)
         {
-            if (student == null || exercise == null)
+            var dbRef = FirebaseDatabase.DefaultInstance.GetReference(DB_NAME);
+            string key = string.IsNullOrEmpty(answer.ID) ? dbRef.Push().Key : answer.ID;
+
+            await dbRef.Child(key).SetRawJsonValueAsync(FirebaseJsonSerializer.SerializeObject(answer));
+
+            return key;
+        }
+
+        public static async Task<ExerciseAnswer> GetExerciseAnswer(UserInfo user, Exercise exercise)
+        {
+            if (user == null || exercise == null)
             {
                 return null;
             }
 
             var dbRef = FirebaseDatabase.DefaultInstance.GetReference(DB_NAME);
-            DataSnapshot exerData = await dbRef.OrderByChild("studentid").EqualTo(student.ID).GetValueAsync();
+            DataSnapshot exerData = await dbRef.OrderByChild("userid").EqualTo(user.ID).GetValueAsync();
 
             if (exerData != null)
             {

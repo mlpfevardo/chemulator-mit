@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Firebase.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,10 +32,25 @@ public class AnswerOverlay : MonoBehaviour
         }
     }
 
-    public void LoadOverlay(Exercise exercise, Student student)
+    public void LoadOverlay(Exercise exercise)
     {
-        answerOverlayObject.SetActive(true);
-        answerOverlayObject.GetComponent<AnswerOverlayScript>().LoadOverlay(exercise, student);
+        if (!GameManager.Instance.CurrentActiveExerciseAnswer.IsStarted)
+        {
+            ModalPanel.Instance.ShowModalYesNo("Not Yet Started", "Opening the answer sheet will start your timer for this exercise. Continue?", () =>
+            {
+                answerOverlayObject.GetComponent<AnswerOverlayScript>().LoadOverlay(exercise);
+                GameManager.Instance.CurrentActiveExerciseAnswer.IsStarted = true;
+                GameManager.Instance.CurrentActiveExerciseAnswer.StartTime = DateTime.Now;
+                ExerciseAnswerDatabase.UpdateExerciseAnswer(GameManager.Instance.CurrentActiveExerciseAnswer);
+                answerOverlayObject.SetActive(true);
+            }, () => { });
+        }
+        else
+        {
+            answerOverlayObject.GetComponent<AnswerOverlayScript>().LoadAnswers(exercise, GameManager.Instance.CurrentActiveExerciseAnswer, false);
+            answerOverlayObject.SetActive(true);
+        }
+        
     }
 
     public void LoadAnswers(Exercise exercise, ExerciseAnswer answer)

@@ -132,7 +132,7 @@ public class SimulationManager : MonoBehaviour
 
     public void LoadAnswerOverlay()
     {
-        AnswerOverlay.Instance.LoadOverlay(GameManager.Instance.CurrentActiveExercise, FirebaseAuthManager.instance.GetStudentInfo());
+        AnswerOverlay.Instance.LoadOverlay(GameManager.Instance.CurrentActiveExercise);
     }
 
     private async void LoadActivityFromState()

@@ -9,7 +9,7 @@ public class StudentGrade
 {
     [JsonIgnore]
     public string ID { get; set; }
-    public string StudentID { get; set; }
+    public string UserID { get; set; }
     public string ExerciseID { get; set; }
     public double Score { get; set; }
 }

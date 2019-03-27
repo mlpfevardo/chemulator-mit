@@ -24,11 +24,11 @@ public class GradeInfoPanelScript : MonoBehaviour
         }
     }
 
-    public async Task LoadAsync(Student student, LabClass labClass)
+    public async Task LoadAsync(UserInfo user, LabClass labClass)
     {
         GameObject item;
-        Debug.Log($"Start GradeInfoPanelScript, student={student.ID} labClass={labClass?.ID}");
-        txtTitle.SetText("View Grade: " + student.UserInfo.ToString());
+        Debug.Log($"Start GradeInfoPanelScript, user={user.ID} labClass={labClass?.ID}");
+        txtTitle.SetText("View Grade: " + user.ToString());
 
         currentLab = labClass;
 
@@ -45,7 +45,7 @@ public class GradeInfoPanelScript : MonoBehaviour
                     item.transform.SetParent(gradeInfoList.transform);
                     item.transform.localScale = new Vector3(1f, 1f);
 
-                    item.GetComponent<GradeInfoItemScript>().LoadAsync(student, labClass, exer);
+                    item.GetComponent<GradeInfoItemScript>().LoadAsync(user, labClass, exer);
                 }
             }
         }
@@ -57,6 +57,7 @@ public class GradeInfoPanelScript : MonoBehaviour
 
     public void OnBack()
     {
-        GradesPanelScript.Instance.LoadAsync(currentLab);
+        //GradesPanelScript.Instance.LoadAsync(currentLab);
+        ClassInfoPanelScript.Instance.LoadAsync(currentLab);
     }
 }

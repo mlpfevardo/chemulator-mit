@@ -13,29 +13,29 @@ public class GradeInfoItemScript : MonoBehaviour
     public TextMeshProUGUI txtGrade;
 
     private LabClass currentLab;
-    private Student currentStudent;
+    private UserInfo currentUser;
     private StudentGrade currentGrade;
     private Exercise currentExercise;
 
-    public async Task<double> LoadAsync(Student student, LabClass labClass, Exercise exercise)
+    public async Task<double> LoadAsync(UserInfo user, LabClass labClass, Exercise exercise)
     {
-        Debug.Log($"Start GradeInfoItemScript, student={student?.ID} exercise={exercise?.ID}");
+        Debug.Log($"Start GradeInfoItemScript, user={user?.ID} exercise={exercise?.ID}");
 
         currentExercise = exercise;
         txtTitle.SetText(exercise.Name);
         txtGrade.SetText("Grade: 0");
-        Setup(student, labClass);
+        Setup(user, labClass);
 
-        currentGrade = await GradeDatabase.GetGradeInfoAsync(student, exercise);
+        currentGrade = await GradeDatabase.GetGradeInfoAsync(user, exercise);
         txtGrade.SetText("Grade: " + currentGrade.Score.ToString());
 
         return currentGrade.Score;
     }
 
-    private void Setup(Student student, LabClass labClass)
+    private void Setup(UserInfo user, LabClass labClass)
     {
         currentLab = labClass;
-        currentStudent = student;
+        currentUser = user;
 
         if (FirebaseAuthManager.instance.IsInstructor())
         {
@@ -44,7 +44,7 @@ public class GradeInfoItemScript : MonoBehaviour
             btnEdit.onClick.RemoveAllListeners();
             btnEdit.onClick.AddListener(() =>
             {
-                GradesPanelScript.Instance.LoadEditGrade(currentStudent, currentLab, currentExercise, currentGrade);
+                GradesPanelScript.Instance.LoadEditGrade(currentUser, currentLab, currentExercise, currentGrade);
             });
         }
         else
