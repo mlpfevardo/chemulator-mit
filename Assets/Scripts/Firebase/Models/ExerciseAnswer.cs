@@ -11,6 +11,6 @@ public class ExerciseAnswer
     public string ID { get; set; }
     public string ExerciseID { get; set; }
     public string StudentID { get; set; }
-    public string Answer { get; set; }
+    public List<string> Answers { get; set; } = new List<string>();
     public DateTime DateTime { get; set; } = DateTime.Now;
 }

@@ -60,7 +60,7 @@ public class UserPanelScript : MonoBehaviour
         welcomePanel.SetActive(false);
         simulationPanel.SetActive(true);
 
-        //simulationPanel.GetComponent<SimulationPanelScript>().LoadAsync();
+        simulationPanel.GetComponent<SimulationPanelScript>().LoadAsync();
     }
 
     public void OnEnrollButtonClick()
@@ -87,9 +87,9 @@ public class UserPanelScript : MonoBehaviour
         classesPanel.GetComponent<ClassesPanelScript>().LoadAllClasses();
     }
 
-    public void StartActivity(int id)
+    public void StartActivity(int id, LabClass labClass)
     {
-        GameManager.Instance.LoadLabActivity(id);
+        GameManager.Instance.LoadLabActivity(id, labClass);
     }
 
     void Update()

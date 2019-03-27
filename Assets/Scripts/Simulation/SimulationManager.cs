@@ -130,6 +130,11 @@ public class SimulationManager : MonoBehaviour
         SceneStorageManager.Instance.ChangeScene(SceneStorageManager.Scenes.User, true);
     }
 
+    public void LoadAnswerOverlay()
+    {
+        AnswerOverlay.Instance.LoadOverlay(GameManager.Instance.CurrentActiveExercise, FirebaseAuthManager.instance.GetStudentInfo());
+    }
+
     private async void LoadActivityFromState()
     {
         Debug.Log("Start LoadActivityFromState");

@@ -44,6 +44,7 @@ namespace Assets.Scripts.Firebase.Database
                 var exer = new Exercise
                 {
                     ClassID = labClass.ID,
+                    ExperimentID = exp.ID,
                     MaxAttempts = 1,
                     TimeLimit = 60,
                     Name = exp.Name,

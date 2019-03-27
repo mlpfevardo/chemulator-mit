@@ -7,8 +7,6 @@ public class GameManager : MonoBehaviour {
     //public static GameManager instance = null;
     private static GameManager instance = null;
 
-    private int requestedLabActivity = 1;
-
     public static GameManager Instance
     {
         get
@@ -23,14 +21,16 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public int CurrentLabActivity
-    {
-        get { return requestedLabActivity; }
-    }
+    public int CurrentLabActivity { get; private set; } = 1;
 
-    public void LoadLabActivity(int activity)
+    public LabClass CurrentActiveClass { get; private set; }
+    public Exercise CurrentActiveExercise { get; private set; }
+
+    public void LoadLabActivity(int activity, LabClass labClass)
     {
-        requestedLabActivity = activity;
+        Debug.Log($"Start LoadLabActivity, activity={activity} labClass={labClass.ID}");
+        CurrentLabActivity = activity;
+        CurrentActiveClass = labClass;
 
         SceneStorageManager.Instance.ChangeScene(SceneStorageManager.Scenes.Simulation, true);
     }
