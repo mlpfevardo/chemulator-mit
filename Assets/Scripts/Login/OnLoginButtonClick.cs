@@ -23,25 +23,33 @@ public class OnLoginButtonClick : MonoBehaviour {
             {
                 FirebaseAuthManager.instance.email = emailField.text;
                 FirebaseAuthManager.instance.password = passwordField.text;
-
-                var result = await FirebaseAuthManager.instance.SigninWithEmailAsync();
-
-                if (result.IsSuccessful)
+                
+                var task = FirebaseAuthManager.instance.SigninWithEmailAsync();
+                if (await Task.WhenAny(Task.Delay(30000), task) == task)
                 {
-                    Debug.Log("Login success " + result.Message);
-                    SceneStorageManager.Instance.ChangeScene(SceneStorageManager.Scenes.User, true);
-                }
-                else
-                {
-                    Debug.Log("Login failed: " + result.Message);
-                    if (result.Message.Contains("network error"))
+                    var result = await task;
+
+                    if (result.IsSuccessful)
                     {
-                        messageText.text = "Network unavailable. Try again later";
+                        Debug.Log("Login success " + result.Message);
+                        SceneStorageManager.Instance.ChangeScene(SceneStorageManager.Scenes.User, true);
                     }
                     else
                     {
-                        messageText.text = "Invalid email or password";
+                        Debug.Log("Login failed: " + result.Message);
+                        if (result.Message.Contains("network error"))
+                        {
+                            messageText.text = "Network unavailable. Try again later";
+                        }
+                        else
+                        {
+                            messageText.text = "Invalid email or password";
+                        }
                     }
+                }
+                else
+                {
+                    messageText.text = "Network timeout";
                 }
             }
             else

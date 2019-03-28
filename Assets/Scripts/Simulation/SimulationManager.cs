@@ -77,15 +77,17 @@ public class SimulationManager : MonoBehaviour
                 break;
         }
 
+        GameStateManagerScript.ClearPath();
+
         if (activeActivity != null)
         {
             PauseManager.OnPause += activeActivity.OnPause;
             activeActivity.Setup();
             RefreshList();
-            
+
             if (GameStateManagerScript.Instance.HasSavedState())
             {
-                LoadActivityFromState();
+                ModalPanel.Instance.ShowModalYesNo("Load Activity", "Would you like to load a saved state for this simulation?", LoadActivityFromState, () => { });
             }
         }
 
@@ -126,7 +128,9 @@ public class SimulationManager : MonoBehaviour
         {
             PauseManager.OnPause -= activeActivity.OnPause;
         }
-        //SceneStorageManager.Instance.LoadPreviousScene();
+
+        GameStateManagerScript.ClearPath();
+
         SceneStorageManager.Instance.ChangeScene(SceneStorageManager.Scenes.User, true);
     }
 

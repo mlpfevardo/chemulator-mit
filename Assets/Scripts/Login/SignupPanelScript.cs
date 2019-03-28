@@ -54,11 +54,11 @@ public class SignupPanelScript : MonoBehaviour {
             return;
         }
 
-        //if (!FirebaseFunctions.IsEmail(inputEmail.text))
-        //{
-        //    txtMessage.text = "Invalid email entered";
-        //    return;
-        //}
+        if (!FirebaseFunctions.IsEmail(inputEmail.text))
+        {
+            txtMessage.text = "Invalid email entered";
+            return;
+        }
 
         if (inputPassword.text.Length < 6)
         {
@@ -106,6 +106,20 @@ public class SignupPanelScript : MonoBehaviour {
                     SuccessPanel.SetActive(true);
                     SignupFormPanel.SetActive(false);
                     successPanel.ShowLoadingMessage();
+
+                    //var task = UserDatabase.RegisterUserAsync(user);
+                    //if (await Task.WhenAny(Task.Delay(300), task) == task)
+                    //{
+                    //    await task.ContinueWith(t =>
+                    //    {
+                    //        FirebaseAuthManager.instance.SignOut();
+                    //    });
+                    //}
+                    //else
+                    //{
+                    //    task.
+                    //    throw new AggregateException("Network timeout");
+                    //}
 
                     await UserDatabase.RegisterUserAsync(user).ContinueWith(task =>
                     {

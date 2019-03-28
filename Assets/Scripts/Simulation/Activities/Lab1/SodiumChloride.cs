@@ -12,7 +12,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
     {
         public SodiumChloride()
         {
-            itemName = "1g Chalk";
+            itemName = "Sodium Chloride";
             icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Materials/SodiumChloride");
         }
 

@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class SinkPanelScript : MonoBehaviour
+public class SinkPanelScript : MonoBehaviour, IDropHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnDrop(PointerEventData eventData)
     {
-        
-    }
+        GameObject item;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var draggableObject = eventData.pointerDrag.GetComponent<DraggableObjectBehavior>();
+
+        if (draggableObject != null)
+        {
+            draggableObject.MixtureItem.OnDropToSink();
+        }
     }
 }

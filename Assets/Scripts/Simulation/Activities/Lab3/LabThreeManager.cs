@@ -34,9 +34,11 @@ namespace Assets.Scripts.Simulation.Activities.Lab3
 
             var beaker150 = new Beaker(150);
             SimulationManager.instance.AddEquipmentItem(beaker150);
+            SimulationMixtureManager.instance.RegisterMixable(beaker150);
 
             var cylinder = new Cylinder();
             SimulationManager.instance.AddEquipmentItem(cylinder);
+            SimulationMixtureManager.instance.RegisterMixable(cylinder);
 
             var balance = new ElectronicBalance();
             SimulationManager.instance.AddEquipmentItem(balance);
@@ -53,6 +55,11 @@ namespace Assets.Scripts.Simulation.Activities.Lab3
 
             var naco = new SodiumCarbonate();
             SimulationManager.instance.AddMaterial(naco);
+
+            /* REGISTRATION */
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(cylinder, cacl);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(cylinder, naco);
+            SimulationMixtureManager.instance.AddAllowableMixtureToMixable(beaker, cylinder);
 
             this.Publish();
         }

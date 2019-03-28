@@ -13,8 +13,7 @@ public abstract class SimulationMixableBehavior
     public string itemName;
     [System.NonSerialized]
     public Sprite icon;
-
-    //public SimulationMixableBehavior Parent { get; set; } = null;
+    
     [System.NonSerialized]
     public GameObject Parent;
     public string MixButtonTitle { get; set; } = String.Empty;
@@ -34,7 +33,7 @@ public abstract class SimulationMixableBehavior
         this.itemName = otherItem.itemName;
         this.icon = otherItem.icon;
         this.itemId = otherItem.GetItemId();
-        //this.Parent = otherItem.Parent;
+        this.Parent = otherItem.Parent;
         this.MixButtonTitle = otherItem.MixButtonTitle;
         this.MinAllowableMix = otherItem.MinAllowableMix;
         this.AutoMix = otherItem.AutoMix;
@@ -48,6 +47,11 @@ public abstract class SimulationMixableBehavior
     public virtual bool isRemovable()
     {
         return true;
+    }
+
+    public virtual void OnDropToSink()
+    {
+        Debug.Log("Dropped to sink");
     }
 
     public virtual void OnDrop(Transform transform)

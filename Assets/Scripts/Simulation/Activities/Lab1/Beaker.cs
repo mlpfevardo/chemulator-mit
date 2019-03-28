@@ -153,6 +153,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
                         if (otherMixables.Find(m => m.GetType() == typeof(SodiumChloride)) != null &&
                             otherMixables.Find(m => m.GetType() == typeof(Chalk)) != null)
                         {
+                            ImageAnimationManager.CreateAnimation(25, dropZoneObject.transform);
                             AutoMix = false;
                             MixButtonTitle = "Stir";
                         }
@@ -324,7 +325,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
                         if (otherMixables.Find(m => m.GetType() == draggedObject.MixtureItem.GetType()) == null)
                         {
                             // first time water
-                            ImageAnimationManager.CreateAnimation(68, dropZoneObject.transform);
+                            ImageAnimationManager.CreateAnimation(73, dropZoneObject.transform);
 
                             draggedObject.SetRemoveOnEnd();
 

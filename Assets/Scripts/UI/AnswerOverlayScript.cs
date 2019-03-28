@@ -174,5 +174,15 @@ public class AnswerOverlayScript : MonoBehaviour
         {
             OnBack();
         }
+
+        var span = DateTime.Now - GameManager.Instance.CurrentActiveExerciseAnswer.StartTime;
+        if (span.TotalMinutes >= activeExercise.TimeLimit)
+        {
+            ModalPanel.Instance.ShowModalOK("Time's Up", "The allotted time for this exercise has expired. Unsaved answer will be submitted", OnSubmit);
+        }
+        else if (span.TotalMinutes >= (activeExercise.TimeLimit / 2))
+        {
+            ModalPanel.Instance.ShowModalOK("Half-way There", "The are only " + span.TotalMinutes + " minutes left to answer this answer sheet", OnSubmit);
+        }
     }
 }

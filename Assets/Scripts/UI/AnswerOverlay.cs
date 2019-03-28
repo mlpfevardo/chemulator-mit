@@ -32,7 +32,7 @@ public class AnswerOverlay : MonoBehaviour
         }
     }
 
-    public void LoadOverlay(Exercise exercise)
+    public async void LoadOverlay(Exercise exercise)
     {
         if (!GameManager.Instance.CurrentActiveExerciseAnswer.IsStarted)
         {
@@ -47,8 +47,26 @@ public class AnswerOverlay : MonoBehaviour
         }
         else
         {
-            answerOverlayObject.GetComponent<AnswerOverlayScript>().LoadAnswers(exercise, GameManager.Instance.CurrentActiveExerciseAnswer, false);
-            answerOverlayObject.SetActive(true);
+            if (!GameManager.Instance.CurrentActiveExerciseAnswer.IsSubmitted)
+            {
+                var span = DateTime.Now - GameManager.Instance.CurrentActiveExerciseAnswer.StartTime;
+                if (span.TotalMinutes >= exercise.TimeLimit)
+                {
+                    ModalPanel.Instance.ShowModalOK("Time's Up", "The allotted time for this exercise has expired. Unsaved answer will be submitted");
+                    GameManager.Instance.CurrentActiveExerciseAnswer.IsSubmitted = true;
+                    GameManager.Instance.CurrentActiveExerciseAnswer.SubmitTime = DateTime.Now;
+                    await ExerciseAnswerDatabase.UpdateExerciseAnswer(GameManager.Instance.CurrentActiveExerciseAnswer);
+                }
+                else
+                {
+                    answerOverlayObject.GetComponent<AnswerOverlayScript>().LoadAnswers(exercise, GameManager.Instance.CurrentActiveExerciseAnswer, false);
+                    answerOverlayObject.SetActive(true);
+                }
+            }
+            else
+            {
+                ModalPanel.Instance.ShowModalOK("Answer Submitted", "Your answers for this exercise have been submitted. You can no longer edit your answers");
+            }
         }
         
     }
