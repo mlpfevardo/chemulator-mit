@@ -29,8 +29,8 @@ public class StartupHandler : MonoBehaviour {
         if (FirebaseAuthManager.instance.IsAuthenticated())
         {
             Debug.Log("Authenticated");
-            FirebaseAuthManager.instance.ReloadUser();
-            SceneStorageManager.Instance.ChangeScene(SceneStorageManager.Scenes.User, true);
+            FirebaseAuthManager.instance.SignOut();
+            SceneStorageManager.Instance.ChangeScene(SceneStorageManager.Scenes.Login, true);
         }
         else
         {

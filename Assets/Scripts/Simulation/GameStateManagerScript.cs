@@ -48,7 +48,10 @@ public class GameStateManagerScript : MonoBehaviour
     public static T LoadAsset<T>(string path) where T : UnityEngine.Object
     {
         var obj = Resources.Load<T>(path);
-        contentPath.Add(obj, path);
+        if (!contentPath.ContainsKey(obj))
+        {
+            contentPath.Add(obj, path);
+        }
         return obj;
     }
 
