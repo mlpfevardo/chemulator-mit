@@ -11,7 +11,7 @@ public class PauseManager : MonoBehaviour
     public GameObject exerciseCanvas;
 
     public delegate void OnPauseAction();
-    public static event OnPauseAction OnPause;
+    public static event EventHandler OnPause;
 
     private EZObjectPool objectPool;
     public static bool block = false;
@@ -23,6 +23,17 @@ public class PauseManager : MonoBehaviour
     private void OnDestroy()
     {
         objectPool.ClearPool();
+    }
+
+    public static void ClearEvents()
+    {
+        if (OnPause != null)
+        {
+            foreach (Delegate del in OnPause.GetInvocationList())
+            {
+                OnPause -= (EventHandler)del;
+            }
+        }
     }
 
     // Use this for initialization
@@ -105,7 +116,8 @@ public class PauseManager : MonoBehaviour
 
         if (show && OnPause != null)
         {
-            OnPause();
+            //OnPause();
+            OnPause?.Invoke(this, new EventArgs());
         }
 
         if (!show && RuntimePlatform.Android == Application.platform)

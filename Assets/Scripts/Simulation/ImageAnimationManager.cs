@@ -22,6 +22,17 @@ public class ImageAnimationManager : MonoBehaviour
     private Func<bool> doActionOnEnd = null;
 
     private static EZObjectPools.EZObjectPool objectPool = null;
+    private static Texture2D[] imageCache;
+
+    public static void Preload()
+    {
+        imageCache = Resources.LoadAll<Texture2D>("Animations");
+    }
+
+    public static void ClearCache()
+    {
+        imageCache = null;
+    }
 
     public static void CreateAnimation(int id, Transform transform, Action endAction = null, bool replaceImage = true, bool autoHide = true)
     {
@@ -38,7 +49,7 @@ public class ImageAnimationManager : MonoBehaviour
         }
 
         GameObject obj;
-        if (objectPool.TryGetNextObject(Vector3.zero, Quaternion.identity, out obj))
+        if (objectPool.TryGetNextObject(transform.position, Quaternion.identity, out obj))
         {
             //var instance = new ImageAnimationManager();
             obj.AddComponent<ImageAnimationManager>();
@@ -144,7 +155,7 @@ public class ImageAnimationManager : MonoBehaviour
         image.transform.localScale = new Vector3(0.5f, 0.5f);
 
         var pos = Camera.main.WorldToScreenPoint(targetTransform.position);
-        image.transform.position = pos;
+        //image.transform.position = pos;
 
         if (isTransformHidden)
         {

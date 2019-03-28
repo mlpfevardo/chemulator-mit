@@ -3,6 +3,7 @@ using Assets.Scripts.Simulation.Activities.Lab2;
 using Assets.Scripts.Simulation.Activities.Lab3;
 using Assets.Scripts.Simulation.Activities.Lab4;
 using Assets.Scripts.Simulation.Activities.Lab5;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ public class SimulationManager : MonoBehaviour
     public PauseManager pauseMenuObject;
     public GameObject equipmentsScrollList;
     public GameObject materialsScrollList;
+    public GameObject preloadPanel;
     public List<GameObject> allowedDropRegions;
     private SimulationActivityBehavior activeActivity = null;
 
@@ -77,7 +79,11 @@ public class SimulationManager : MonoBehaviour
                 break;
         }
 
+        preloadPanel.SetActive(true);
+
         GameStateManagerScript.ClearPath();
+        ImageAnimationManager.Preload();
+        PauseManager.ClearEvents();
 
         if (activeActivity != null)
         {
@@ -90,6 +96,8 @@ public class SimulationManager : MonoBehaviour
                 ModalPanel.Instance.ShowModalYesNo("Load Activity", "Would you like to load a saved state for this simulation?", LoadActivityFromState, () => { });
             }
         }
+
+        preloadPanel.SetActive(false);
 
         Debug.Log("Requested activity for " + GameManager.Instance.CurrentLabActivity);
     }
@@ -130,6 +138,7 @@ public class SimulationManager : MonoBehaviour
         }
 
         GameStateManagerScript.ClearPath();
+        ImageAnimationManager.ClearCache();
 
         SceneStorageManager.Instance.ChangeScene(SceneStorageManager.Scenes.User, true);
     }

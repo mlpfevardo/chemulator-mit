@@ -37,10 +37,8 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
             ChangePart(LabPart.PartA);
         }
 
-        public override void OnPause()
+        public override void OnPause(object sender, EventArgs e)
         {
-            base.OnPause();
-
             SimulationManager.instance.pauseMenuObject.AddButton("Change Activity Part", () =>
             {
                 Action<LabPart> a = ChangePart;

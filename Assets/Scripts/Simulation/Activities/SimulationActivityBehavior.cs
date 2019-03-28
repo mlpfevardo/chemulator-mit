@@ -13,7 +13,7 @@ public abstract class SimulationActivityBehavior
 
     public virtual void Finish() { }
 
-    public virtual void OnPause() { }
+    public virtual void OnPause(object sender, EventArgs e) { }
 
     protected void Reset()
     {
