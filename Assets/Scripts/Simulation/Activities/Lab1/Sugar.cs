@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public Sugar()
         {
             itemName = "Brown Sugar";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Materials/Sugar");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Materials/Sugar");
         }
 
         public Sugar(SimulationMixableBehavior otherItem) : base(otherItem)

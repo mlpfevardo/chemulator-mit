@@ -8,7 +8,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab5
         public CoconutOil()
         {
             itemName = "Coconut Oil";
-            icon = Resources.Load<Sprite>("Simulation/Lab5/Materials/CocoOil");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab5/Materials/CocoOil");
         }
 
         public CoconutOil(SimulationMixableBehavior otherItem) : base(otherItem)

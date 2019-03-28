@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab4
         public Ruler()
         {
             itemName = "Ruler";
-            icon = Resources.Load<Sprite>("Simulation/Lab2/Equipments/Ruler");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab2/Equipments/Ruler");
         }
 
         public Ruler(SimulationMixableBehavior otherItem) : base(otherItem)

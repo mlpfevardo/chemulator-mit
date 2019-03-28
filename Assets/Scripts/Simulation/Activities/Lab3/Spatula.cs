@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab3
         public Spatula()
         {
             itemName = "Spatula";
-            icon = Resources.Load<Sprite>("Simulation/Lab3/Equipments/Spatula");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab3/Equipments/Spatula");
         }
 
         public Spatula(SimulationMixableBehavior otherItem) : base(otherItem)

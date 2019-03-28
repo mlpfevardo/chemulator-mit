@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public Filter()
         {
             itemName = "Filter";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Equipments/Filter");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Equipments/Filter");
             Scale = 20f;
         }
 

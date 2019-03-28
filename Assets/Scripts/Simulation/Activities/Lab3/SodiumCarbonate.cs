@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab3
         public SodiumCarbonate()
         {
             itemName = "1M Sodium Carbonate";
-            icon = Resources.Load<Sprite>("Simulation/Lab3/Materials/SodiumCarbonate");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab3/Materials/SodiumCarbonate");
         }
 
         public SodiumCarbonate(SimulationMixableBehavior otherItem) : base(otherItem)

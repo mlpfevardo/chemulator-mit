@@ -15,7 +15,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public FiltrationSetup()
         {
             itemName = "Filtration Setup";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Equipments/FiltrationSetup");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Equipments/FiltrationSetup");
             Scale = 70f;
             AutoMix = true;
         }
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
                         {
                             ImageAnimationManager.CreateAnimation(27, this.Parent.transform, () =>
                             {
-                                this.icon = Resources.Load<Sprite>("Simulation/Lab1/Materials/FilterComplete");
+                                this.icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Materials/FilterComplete");
                                 this.Parent.GetComponent<DropZoneObjectHandler>().SetIcon(this.icon);
 
                             }, false);

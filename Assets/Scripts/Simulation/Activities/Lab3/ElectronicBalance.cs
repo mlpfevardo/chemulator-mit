@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab3
         public ElectronicBalance()
         {
             itemName = "Electronic Balance";
-            icon = Resources.Load<Sprite>("Simulation/Lab3/Equipments/ElectronicBalance");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab3/Equipments/ElectronicBalance");
             AutoMix = true;
             Scale = 40;
         }

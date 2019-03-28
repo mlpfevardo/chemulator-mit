@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public Chalk()
         {
             itemName = "1g Chalk";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Materials/Chalk");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Materials/Chalk");
         }
 
         public Chalk(SimulationMixableBehavior otherItem) : base(otherItem)

@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public Phenolphthalein()
         {
             itemName = "Phenolphthalein";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Materials/Phenolphthalein");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Materials/Phenolphthalein");
         }
 
         public Phenolphthalein(SimulationMixableBehavior otherItem) : base(otherItem)

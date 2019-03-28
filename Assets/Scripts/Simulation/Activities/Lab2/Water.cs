@@ -14,7 +14,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab2
         public Water()
         {
             itemName = "Distilled Water";
-            icon = Resources.Load<Sprite>("Simulation/Lab2/Materials/Water");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab2/Materials/Water");
         }
 
         public Water(Water otherItem) : base(otherItem)

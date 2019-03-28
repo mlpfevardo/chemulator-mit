@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public Funnel()
         {
             itemName = "Funnel";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Equipments/Funnel");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Equipments/Funnel");
         }
 
         public Funnel(SimulationMixableBehavior otherItem) : base(otherItem)

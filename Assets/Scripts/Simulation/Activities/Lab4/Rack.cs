@@ -15,7 +15,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab4
         public Rack()
         {
             this.itemName = "Rack";
-            this.icon = Resources.Load<Sprite>("Simulation/Lab4/Equipments/Rack");
+            this.icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab4/Equipments/Rack");
             AutoMix = true;
         }
 
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab4
                     if (!hasTestTube)
                     {
                         hasTestTube = true;
-                        this.icon = Resources.Load<Sprite>("Simulation/Lab4/Equipments/RackTube");
+                        this.icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab4/Equipments/RackTube");
                         dropZoneObject.SetIcon(this.icon);
                         draggedObject.SetRemoveOnEnd();
 

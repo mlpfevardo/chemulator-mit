@@ -33,10 +33,23 @@ public class GameStateManagerScript : MonoBehaviour
     public GameObject dropZoneContainer;
 
     private static string fileName = "-simulationData.dat";
+    private static Dictionary<object, string> contentPath = new Dictionary<object, string>();
 
     private void Awake()
     {
         Instance = this;
+    }
+
+    public static void ClearPath()
+    {
+        contentPath.Clear();
+    }
+
+    public static T LoadAsset<T>(string path) where T : UnityEngine.Object
+    {
+        var obj = Resources.Load<T>(path);
+        contentPath.Add(obj, path);
+        return obj;
     }
 
     public async Task SaveState()
@@ -69,7 +82,8 @@ public class GameStateManagerScript : MonoBehaviour
                 x = child.position.x,
                 y = child.position.y,
                 mixtureItem = element.MixtureItem,
-                iconPath = System.IO.Path.ChangeExtension(AssetDatabase.GetAssetPath(element.MixtureItem.icon).Replace("Assets/Resources/", ""), null),
+                //iconPath = System.IO.Path.ChangeExtension(AssetDatabase.GetAssetPath(element.MixtureItem.icon).Replace("Assets/Resources/", ""), null),
+                iconPath = contentPath.ContainsKey(element.MixtureItem.icon) ? contentPath[element.MixtureItem.icon] : null,
             };
 
 

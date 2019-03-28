@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab2
         public Cylinder()
         {
             itemName = "100mL Graduated Cylinder";
-            icon = Resources.Load<Sprite>("Simulation/Lab2/Equipments/Cylinder");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab2/Equipments/Cylinder");
             MixButtonTitle = "Measure";
             MinAllowableMix = 0;
             AutoMix = true;

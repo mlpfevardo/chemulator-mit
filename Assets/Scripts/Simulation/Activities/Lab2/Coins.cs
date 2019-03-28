@@ -14,7 +14,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab2
         public Coins()
         {
             itemName = "10 One-Peso Coins";
-            icon = Resources.Load<Sprite>("Simulation/Lab2/Materials/Coins");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab2/Materials/Coins");
             AutoMix = true;
         }
 

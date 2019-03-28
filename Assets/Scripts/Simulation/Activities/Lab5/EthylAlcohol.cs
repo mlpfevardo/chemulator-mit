@@ -8,7 +8,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab5
         public EthylAlcohol()
         {
             itemName = "Ethyl Alcohol";
-            icon = Resources.Load<Sprite>("Simulation/Lab5/Materials/Ethyl");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab5/Materials/Ethyl");
         }
 
         public EthylAlcohol(SimulationMixableBehavior otherItem) : base(otherItem)

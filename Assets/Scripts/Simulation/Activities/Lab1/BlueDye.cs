@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public BlueDye()
         {
             itemName = "Blue Dye";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Materials/BlueDye");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Materials/BlueDye");
         }
 
         public BlueDye(SimulationMixableBehavior otherItem) : base(otherItem)

@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public Water()
         {
             itemName = "Water";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Materials/Water");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Materials/Water");
         }
 
         public Water(SimulationMixableBehavior otherItem) : base(otherItem)

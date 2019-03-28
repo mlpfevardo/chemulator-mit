@@ -8,7 +8,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab5
         public Kerosene()
         {
             itemName = "Kerosene";
-            icon = Resources.Load<Sprite>("Simulation/Lab5/Materials/Kerosene");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab5/Materials/Kerosene");
         }
 
         public Kerosene(SimulationMixableBehavior otherItem) : base(otherItem)

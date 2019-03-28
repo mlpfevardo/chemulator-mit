@@ -14,7 +14,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab5
         public Rack()
         {
             this.itemName = "Test Tube Rack";
-            this.icon = Resources.Load<Sprite>("Simulation/Lab5/Equipments/Rack");
+            this.icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab5/Equipments/Rack");
             this.MixButtonTitle = "Stir";
             this.Scale = 40f;
             AutoMix = true;
@@ -35,7 +35,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab5
                     if (!hasTestTube)
                     {
                         hasTestTube = true;
-                        this.icon = Resources.Load<Sprite>("Simulation/Lab5/Equipments/Rack-Tube");
+                        this.icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab5/Equipments/Rack-Tube");
                         dropZoneObject.SetIcon(this.icon);
                         draggedObject.SetRemoveOnEnd();
 

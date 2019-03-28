@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public IronStand()
         {
             itemName = "Iron Stand";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Equipments/IronStand");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Equipments/IronStand");
         }
 
         public IronStand(SimulationMixableBehavior otherItem) : base(otherItem)

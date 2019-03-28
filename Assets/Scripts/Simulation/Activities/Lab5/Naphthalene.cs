@@ -8,7 +8,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab5
         public Naphthalene()
         {
             itemName = "0.15g Naphthalene";
-            icon = Resources.Load<Sprite>("Simulation/Lab5/Materials/Napthalene");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab5/Materials/Napthalene");
         }
 
         public Naphthalene(SimulationMixableBehavior otherItem) : base(otherItem)

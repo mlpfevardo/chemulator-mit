@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab3
         public CalciumChloride()
         {
             itemName = "1M Calcium Chloride";
-            icon = Resources.Load<Sprite>("Simulation/Lab3/Materials/CalciumChloride");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab3/Materials/CalciumChloride");
         }
 
         public CalciumChloride(SimulationMixableBehavior otherItem) : base(otherItem)

@@ -8,7 +8,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab5
         public SodiumChloride()
         {
             itemName = "0.15g Sodium Chloride";
-            icon = Resources.Load<Sprite>("Simulation/Lab5/Materials/SoChlo");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab5/Materials/SoChlo");
         }
 
         public SodiumChloride(SimulationMixableBehavior otherItem) : base(otherItem)

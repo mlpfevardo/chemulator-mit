@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public AmmoniumHydroxide()
         {
             itemName = "Ammonium Hydroxide";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Materials/AmmoniumHydroxide");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Materials/AmmoniumHydroxide");
         }
 
         public AmmoniumHydroxide(SimulationMixableBehavior otherItem) : base(otherItem)

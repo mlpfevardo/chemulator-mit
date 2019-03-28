@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab5
         public MicroTestTube()
         {
             this.itemName = "Test Tube";
-            this.icon = Resources.Load<Sprite>("Simulation/Lab5/Equipments/Tube");
+            this.icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab5/Equipments/Tube");
         }
 
         public MicroTestTube(MicroTestTube other) : base(other)

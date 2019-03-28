@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab2
         public Thermometer()
         {
             itemName = "Thermometer";
-            icon = Resources.Load<Sprite>("Simulation/Lab2/Equipments/Thermometer");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab2/Equipments/Thermometer");
         }
 
         public Thermometer(SimulationMixableBehavior otherItem) : base(otherItem)

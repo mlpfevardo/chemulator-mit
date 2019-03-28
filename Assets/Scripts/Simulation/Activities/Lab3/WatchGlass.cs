@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab3
         public WatchGlass()
         {
             itemName = "Spatula";
-            icon = Resources.Load<Sprite>("Simulation/Lab3/Equipments/WatchGlass");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab3/Equipments/WatchGlass");
         }
 
         public WatchGlass(SimulationMixableBehavior otherItem) : base(otherItem)

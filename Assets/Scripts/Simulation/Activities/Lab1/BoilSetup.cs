@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public BoilSetup()
         {
             itemName = "Boiling Setup";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Equipments/BoilSetup");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Equipments/BoilSetup");
             Scale = 70f;
         }
 

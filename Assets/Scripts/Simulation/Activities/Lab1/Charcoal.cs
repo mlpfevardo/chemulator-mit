@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public Charcoal()
         {
             itemName = "Powdered Charcoal";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Materials/Charcoal");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Materials/Charcoal");
         }
 
         public Charcoal(SimulationMixableBehavior otherItem) : base(otherItem)

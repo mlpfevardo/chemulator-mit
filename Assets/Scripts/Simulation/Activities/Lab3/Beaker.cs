@@ -17,11 +17,11 @@ namespace Assets.Scripts.Simulation.Activities.Lab3
             itemName = volume + "mL Beaker";
             if (volume == 150)
             {
-                icon = Resources.Load<Sprite>("Simulation/Lab3/Equipments/150Beaker");
+                icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab3/Equipments/150Beaker");
             }
             else if (volume == 400)
             {
-                icon = Resources.Load<Sprite>("Simulation/Lab3/Equipments/400Beaker");
+                icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab3/Equipments/400Beaker");
             }
             else
             {

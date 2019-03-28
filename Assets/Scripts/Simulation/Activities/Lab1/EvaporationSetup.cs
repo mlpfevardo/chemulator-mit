@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public EvaporationSetup()
         {
             itemName = "Evaporation Setup";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Equipments/EvaporationSetup");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Equipments/EvaporationSetup");
             Scale = 70f;
             AutoMix = true;
         }

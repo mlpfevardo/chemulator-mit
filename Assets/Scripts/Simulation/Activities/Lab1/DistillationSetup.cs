@@ -15,7 +15,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public DistillationSetup()
         {
             itemName = "Distillation Setup";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Equipments/DistillationSetup");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Equipments/DistillationSetup");
             Scale = 70f;
             AutoMix = true;
         }
@@ -41,7 +41,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
                             {
                                 ImageAnimationManager.CreateAnimation(43, Parent.transform, () =>
                                 {
-                                    this.icon = Resources.Load<Sprite>("Simulation/Lab1/Materials/Distillate1");
+                                    this.icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Materials/Distillate1");
                                     this.Parent.GetComponent<DropZoneObjectHandler>().SetIcon(this.icon);
 
                                 }, false);
@@ -50,7 +50,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
                             {
                                 ImageAnimationManager.CreateAnimation(52, Parent.transform, () =>
                                 {
-                                    this.icon = Resources.Load<Sprite>("Simulation/Lab1/Materials/Distillate2");
+                                    this.icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Materials/Distillate2");
                                     this.Parent.GetComponent<DropZoneObjectHandler>().SetIcon(this.icon);
 
                                 }, false);

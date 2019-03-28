@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab4
         public HydrochloricAcid()
         {
             itemName = "2mL Hydrochloric Acid";
-            icon = Resources.Load<Sprite>("Simulation/Lab4/Materials/HydrochloricAcid");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab4/Materials/HydrochloricAcid");
         }
 
         public HydrochloricAcid(SimulationMixableBehavior otherItem) : base(otherItem)

@@ -13,7 +13,7 @@ namespace Assets.Scripts.Simulation.Activities.Lab1
         public Sand()
         {
             itemName = "1g Sand";
-            icon = Resources.Load<Sprite>("Simulation/Lab1/Materials/Sand");
+            icon = GameStateManagerScript.LoadAsset<Sprite>("Simulation/Lab1/Materials/Sand");
         }
 
         public Sand(SimulationMixableBehavior otherItem) : base(otherItem)
