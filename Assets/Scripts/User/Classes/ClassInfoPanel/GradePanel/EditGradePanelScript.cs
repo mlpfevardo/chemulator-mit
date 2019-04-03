@@ -81,4 +81,16 @@ public class EditGradePanelScript : MonoBehaviour
         btnBack.interactable = interactable;
         btnViewAnswers.interactable = interactable;
     }
+
+    private void Update()
+    {
+        float f = 0f;
+
+        if (float.TryParse(inputGrade.text, out f))
+        {
+            f = Mathf.Clamp(f, 0, 100);
+            inputGrade.text = ((int)f).ToString();
+        }
+
+    }
 }

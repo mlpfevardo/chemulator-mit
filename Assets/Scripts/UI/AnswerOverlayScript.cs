@@ -142,7 +142,7 @@ public class AnswerOverlayScript : MonoBehaviour
 
         if (exerPanels.Count > 0 && activity >= 0 && activity < exerPanels.Count)
         {
-            activePanel = exerPanels[activity];
+            activePanel = exerPanels[activity - 1];
 
             var fields = activePanel.GetComponentsInChildren<InputField>();
 
@@ -176,13 +176,27 @@ public class AnswerOverlayScript : MonoBehaviour
         }
 
         var span = DateTime.Now - GameManager.Instance.CurrentActiveExerciseAnswer.StartTime;
-        if (span.TotalMinutes >= activeExercise.TimeLimit)
+        var remainingTime = (GameManager.Instance.CurrentActiveExercise.TimeLimit - (span.TotalMinutes));
+
+        if (remainingTime >= 0)
         {
-            ModalPanel.Instance.ShowModalOK("Time's Up", "The allotted time for this exercise has expired. Unsaved answer will be submitted", OnSubmit);
+            if (remainingTime < 1)
+            {
+                txtTitle?.SetText("Time Remaining: " + (int)(remainingTime * 60) + " seconds");
+            }
+            else
+            {
+                txtTitle?.SetText("Time Remaining: " + (int)remainingTime + " minutes");
+            }
         }
-        else if (span.TotalMinutes >= (activeExercise.TimeLimit / 2))
+        else
         {
-            ModalPanel.Instance.ShowModalOK("Half-way There", "The are only " + span.TotalMinutes + " minutes left to answer this answer sheet", OnSubmit);
+            txtTitle?.SetText("Time Remaining: Time's up");
+            if (!GameManager.Instance.CurrentActiveExerciseAnswer.IsSubmitted)
+            {
+                GameManager.Instance.CurrentActiveExerciseAnswer.IsSubmitted = true;
+                ModalPanel.Instance.ShowModalOK("Time's Up", "The allotted time for this exercise has expired. Unsaved answer will be submitted", OnSubmit);
+            }
         }
     }
 }
